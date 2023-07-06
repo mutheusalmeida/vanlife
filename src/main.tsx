@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { App } from './app'
 import GlobalStyles from './styles/global'
 
+import './styles/index.css'
+
 const rootElement = document.querySelector('[data-js="root"]') as HTMLElement
 
 if (!rootElement) {

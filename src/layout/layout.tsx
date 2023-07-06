@@ -5,7 +5,7 @@ import * as S from './styles'
 export const Layout = () => {
   return (
     <S.LayoutWrapper>
-      <h1>layout</h1>
+      <h1 className="font-bold text-1xl">layout</h1>
 
       <Outlet />
     </S.LayoutWrapper>
