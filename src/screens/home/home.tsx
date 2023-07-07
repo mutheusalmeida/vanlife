@@ -1,9 +1,7 @@
-import * as S from './styles'
-
 export const Home = () => {
   return (
-    <S.HomeWrapper>
+    <div>
       <h1>home</h1>
-    </S.HomeWrapper>
+    </div>
   )
 }
