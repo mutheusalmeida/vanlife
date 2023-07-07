@@ -10,7 +10,7 @@ export const Home = () => {
           <p className="text-white font-medium">Add adventure to your life by joining the #vanlife movement. Rent the perfect van to make your perfect road trip.</p>
         </div>
 
-        <Link className="font-bold bg-orange px-4 h-[50px] flex justify-center rounded-md leading-[50px] text-white" to="/vans">Find your van</Link>
+        <Link className="font-bold bg-orange px-4 h-[50px] flex justify-center rounded-md leading-[50px] border border-orange text-white hover:border-gray-100 hover:text-gray-100 hover:bg-orange-700 transition-all" to="/vans">Find your van</Link>
       </div>
     </section>
   )
