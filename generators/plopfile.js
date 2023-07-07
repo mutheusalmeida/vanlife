@@ -19,11 +19,6 @@ export default (plop) => {
         path: '../src/{{dashCase name}}/{{dashCase name}}.tsx',
         templateFile: 'templates/component.tsx.hbs',
       },
-      {
-        type: 'add',
-        path: '../src/{{dashCase name}}/styles.ts',
-        templateFile: 'templates/styles.ts.hbs',
-      },
     ],
   })
 }
