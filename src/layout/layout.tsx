@@ -4,10 +4,12 @@ import { Outlet } from 'react-router-dom'
 
 export const Layout = () => {
   return (
-    <div className="h-full w-full bg-orange-100">
-      <Header />
+    <div className="flex flex-col justify-between h-full w-full bg-orange-100">
+      <div>
+        <Header />
 
-      <Outlet />
+        <Outlet />
+      </div>
 
       <Footer />
     </div>
