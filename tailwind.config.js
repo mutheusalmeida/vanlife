@@ -4,6 +4,7 @@ export default {
   theme: {
     colors: {
       'orange-100': '#FFF7ED',
+      'black-100': '#4D4D4D',
     },
     extend: {},
   },
