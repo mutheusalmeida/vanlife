@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 export const Home = () => {
   return (
     <main>
-      <section aria-label="Hero attention grabber" className="bg-[url('../assets/hero-image.png')] bg-black-100 bg-blend-overlay bg-center bg-cover flex justify-center mx-auto">
+      <section aria-label="Hero attention grabber" className="bg-[url('../assets/hero-image.png')] bg-black-100 bg-blend-overlay bg-center bg-cover flex justify-center">
         <div className="max-w-lg flex flex-col px-7 py-16 gap-12">
           <div className="flex flex-col gap-6">
             <h2 className="text-white text-4xl leading-[42px] font-extrabold">You got the travel plans, we got the travel vans.</h2>
