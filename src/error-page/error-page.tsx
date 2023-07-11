@@ -1,4 +1,4 @@
-import notFoundImg from '@/assets/not-found-image.png'
+import notFoundImg from '@/assets/van-illustration.png'
 import { Title } from '@/title'
 import { useRouteError } from 'react-router-dom'
 
