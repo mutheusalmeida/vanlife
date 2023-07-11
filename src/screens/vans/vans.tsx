@@ -33,19 +33,19 @@ export const Vans = () => {
       </Title>
 
       <div className="flex gap-5 mt-6 flex-wrap">
-        <button className="flex text-black-100 font-medium bg-orange-200 justify-center items-center h-[2.375em] min-w-[6.5em] leading-[6.5em] max-w-max rounded-md hover:text-orange-200 transition-all hover:bg-orange">
+        <button className="flex text-black-100 font-medium bg-orange-200 justify-center items-center h-[2.375em] min-w-[6.5em] leading-[2.375em] max-w-max rounded-md hover:text-orange-200 transition-all hover:bg-orange">
           Simple
         </button>
 
-        <button className="flex text-black-100 font-medium bg-orange-200 justify-center items-center h-[2.375em] min-w-[6.5em] leading-[6.5em] max-w-max rounded-md hover:text-orange-200 transition-all hover:bg-black">
+        <button className="flex text-black-100 font-medium bg-orange-200 justify-center items-center h-[2.375em] min-w-[6.5em] leading-[2.375em] max-w-max rounded-md hover:text-orange-200 transition-all hover:bg-black">
           Luxury
         </button>
 
-        <button className="flex text-black-100 font-medium bg-orange-200 justify-center items-center h-[2.375em] min-w-[6.5em] leading-[6.5em] max-w-max rounded-md hover:text-orange-200 transition-all hover:bg-green">
+        <button className="flex text-black-100 font-medium bg-orange-200 justify-center items-center h-[2.375em] min-w-[6.5em] leading-[2.375em] max-w-max rounded-md hover:text-orange-200 transition-all hover:bg-green">
           Rugged
         </button>
 
-        <button className="flex text-black-100 font-medium justify-center items-center h-[2.375em] min-w-[6.5em] leading-[6.5em] max-w-max rounded-md hover:opacity-80 transition-all underline ml-auto">
+        <button className="flex text-black-100 font-medium justify-center items-center h-[2.375em] min-w-[6.5em] leading-[2.375em] max-w-max rounded-md hover:opacity-80 transition-all underline ml-auto">
           Clear filters
         </button>
       </div>
