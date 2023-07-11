@@ -1,3 +1,4 @@
+import { ErrorPage } from '@/error-page'
 import { Layout } from '@/layout'
 import { About } from '@/screens/about'
 import { Home } from '@/screens/home'
@@ -11,7 +12,14 @@ import {
 
 export const routes = createBrowserRouter(
   createRoutesFromChildren(
-    <Route element={<Layout />}>
+    <Route
+      element={<Layout />}
+      errorElement={
+        <Layout>
+          <ErrorPage />
+        </Layout>
+      }
+    >
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
       <Route path="vans" element={<Vans />} />
