@@ -9,12 +9,10 @@ type LayoutProps = {
 
 export const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="flex flex-col justify-between min-h-full w-full bg-orange-100 text-black">
-      <div>
-        <Header />
+    <div className="grid grid-rows-[auto,_1fr,_auto] grid-cols-[1fr] justify-between min-h-full w-full bg-orange-100 text-black">
+      <Header />
 
-        {children ? children : <Outlet />}
-      </div>
+      <main>{children ? children : <Outlet />}</main>
 
       <Footer />
     </div>

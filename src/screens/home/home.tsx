@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export const Home = () => {
   return (
-    <main>
+    <>
       <section
         aria-label="Hero attention grabber"
         className="bg-[url('../assets/hero-image.png')] bg-black-100 bg-blend-overlay bg-center bg-cover flex justify-center"
@@ -54,6 +54,6 @@ export const Home = () => {
           </p>
         </div>
       </section>
-    </main>
+    </>
   )
 }
