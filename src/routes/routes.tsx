@@ -1,6 +1,7 @@
 import { Layout } from '@/layout'
 import { About } from '@/screens/about'
 import { Home } from '@/screens/home'
+import { VanDetails } from '@/screens/van-details'
 import { Vans } from '@/screens/vans'
 import {
   createBrowserRouter,
@@ -14,6 +15,7 @@ export const routes = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
       <Route path="vans" element={<Vans />} />
+      <Route path="vans/:id" element={<VanDetails />} />
     </Route>
   )
 )
