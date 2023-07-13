@@ -28,7 +28,7 @@ export const Button = ({
 
   if (to) {
     return (
-      <Ele className={style} to="/vans">
+      <Ele className={style} to={to}>
         {children}
       </Ele>
     )
