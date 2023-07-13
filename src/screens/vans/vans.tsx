@@ -1,8 +1,8 @@
 import { slugfy } from '@/resources/utils'
 import { Title } from '@/title'
+import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { twMerge } from 'tailwind-merge'
 import type { VanType } from 'vans'
 
 export const Vans = () => {
@@ -63,18 +63,7 @@ export const Vans = () => {
                       {van.name}
                     </Title>
 
-                    <span
-                      className={twMerge(
-                        'flex font-medium justify-center items-center h-[2.125em] min-w-[5.375em] leading-[2.125em] max-w-max rounded-md text-orange-200 capitalize px-2',
-                        van.type === 'simple'
-                          ? 'bg-orange'
-                          : van.type === 'luxury'
-                          ? 'bg-black'
-                          : 'bg-green'
-                      )}
-                    >
-                      {van.type}
-                    </span>
+                    <VanLabel ele="span" type={van.type} />
                   </div>
 
                   <div className="flex flex-col items-end">
