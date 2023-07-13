@@ -1,5 +1,6 @@
+import { ReactComponent as ArrowIcon } from '@/assets/arrow-icon.svg'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import type { VanType } from 'vans'
 
 export const VanDetails = () => {
@@ -21,8 +22,15 @@ export const VanDetails = () => {
   }, [id])
 
   return (
-    <div>
-      <img src={data?.imageUrl} />
+    <div className="container max-w-[497px] mx-auto my-10">
+      <Link
+        className="flex items-center gap-2 font-medium underline text-black-200"
+        to="/vans"
+      >
+        <ArrowIcon /> <span>Back to all vans</span>
+      </Link>
+
+      <img className="rounded-md mt-10 mb-12 h-[497px]" src={data?.imageUrl} />
     </div>
   )
 }

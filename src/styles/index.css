@@ -7,3 +7,7 @@ body,
 [data-js='root'] {
   height: 100%;
 }
+
+body {
+  font-family: 'Inter', sans-serif;
+}
