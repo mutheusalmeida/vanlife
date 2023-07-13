@@ -3,7 +3,22 @@ import { Title } from '@/title'
 import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { twMerge } from 'tailwind-merge'
 import type { VanType } from 'vans'
+
+type LabelsType = Pick<VanType, 'type'>
+
+const labels: LabelsType[] = [
+  {
+    type: 'simple',
+  },
+  {
+    type: 'luxury',
+  },
+  {
+    type: 'rugged',
+  },
+]
 
 export const Vans = () => {
   const [data, setData] = useState<VanType[] | null>(null)
@@ -26,17 +41,21 @@ export const Vans = () => {
       </Title>
 
       <div className="flex gap-5 mt-6 flex-wrap">
-        <button className="flex text-black-100 font-medium bg-orange-200 justify-center items-center h-[2.375em] min-w-[6.5em] leading-[2.375em] max-w-max rounded-md hover:text-orange-200 transition-all hover:bg-orange">
-          Simple
-        </button>
-
-        <button className="flex text-black-100 font-medium bg-orange-200 justify-center items-center h-[2.375em] min-w-[6.5em] leading-[2.375em] max-w-max rounded-md hover:text-orange-200 transition-all hover:bg-black">
-          Luxury
-        </button>
-
-        <button className="flex text-black-100 font-medium bg-orange-200 justify-center items-center h-[2.375em] min-w-[6.5em] leading-[2.375em] max-w-max rounded-md hover:text-orange-200 transition-all hover:bg-green">
-          Rugged
-        </button>
+        {labels.map(({ type }, index) => (
+          <VanLabel
+            key={index}
+            ele="button"
+            className={twMerge(
+              'transition-all bg-orange-200 text-black-100 hover:text-orange-200 h-[2.375em] min-w-[6.5em] leading-[2.375em]',
+              type === 'simple'
+                ? 'hover:bg-orange'
+                : type === 'luxury'
+                ? 'hover:bg-black'
+                : 'hover:bg-green'
+            )}
+            type={type}
+          />
+        ))}
 
         <button className="flex text-black-100 font-medium justify-center items-center h-[2.375em] min-w-[6.5em] leading-[2.375em] max-w-max rounded-md hover:opacity-80 transition-all underline ml-auto">
           Clear filters
