@@ -1,3 +1,4 @@
+import { Button } from '@/button'
 import { Title } from '@/title'
 import { Link } from 'react-router-dom'
 
@@ -20,12 +21,9 @@ export const Home = () => {
             </p>
           </div>
 
-          <Link
-            className="font-bold bg-orange-600 px-4 h-[50px] flex justify-center rounded-md leading-[50px] text-white hover:text-gray-100 hover:bg-orange-700 transition-all"
-            to="/vans"
-          >
+          <Button ele={Link} to="/vans">
             Find your van
-          </Link>
+          </Button>
         </div>
       </section>
 
