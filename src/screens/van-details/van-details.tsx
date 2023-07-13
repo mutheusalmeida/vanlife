@@ -1,4 +1,5 @@
 import { ReactComponent as ArrowIcon } from '@/assets/arrow-icon.svg'
+import { Button } from '@/button'
 import { Title } from '@/title'
 import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
@@ -48,6 +49,10 @@ export const VanDetails = () => {
       </p>
 
       <p className="font-medium leading-6 my-5">{data?.description}</p>
+
+      <Button ele={Link} to="/">
+        Rent this van
+      </Button>
     </div>
   )
 }

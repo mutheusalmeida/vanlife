@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge'
 
 type ButtonProps = {
   ele: ElementType
-  to: string
+  to?: string
   children: ReactNode
 }
 
