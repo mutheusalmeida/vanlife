@@ -4,7 +4,7 @@ import { VanType } from 'vans'
 
 type VanLabelProps = {
   ele: ElementType
-} & Pick<VanType, 'type'>
+} & Partial<Pick<VanType, 'type'>>
 
 export const VanLabel = ({ type, ele: Ele }: VanLabelProps) => {
   return (
