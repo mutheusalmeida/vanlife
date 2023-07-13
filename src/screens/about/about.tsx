@@ -1,3 +1,4 @@
+import { Button } from '@/button'
 import { Title } from '@/title'
 import { Link } from 'react-router-dom'
 
@@ -35,12 +36,14 @@ export const About = () => {
             Your destination is waiting. <br /> Your van is ready.
           </Title>
 
-          <Link
-            className="mt-6 bg-black flex items-center font-bold leading-[50px] w-max rounded-lg px-5 h-[50px] text-white hover:text-gray-100 hover:bg-black-200"
+          <Button
+            ele={Link}
+            className="mt-6 w-max"
+            variant="secondary"
             to="/vans"
           >
             Explore our vans
-          </Link>
+          </Button>
         </div>
       </div>
     </>
