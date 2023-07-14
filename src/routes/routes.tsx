@@ -1,5 +1,10 @@
+import { Dashboard } from '@/dashboard'
 import { ErrorPage } from '@/error-page'
+import { HostLayout } from '@/host-layout'
+import { Income } from '@/income'
 import { Layout } from '@/layout'
+import { ListedVans } from '@/listed-vans'
+import { Reviews } from '@/reviews'
 import { About } from '@/screens/about'
 import { Home } from '@/screens/home'
 import { VanDetails } from '@/screens/van-details'
@@ -23,7 +28,13 @@ export const routes = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
       <Route path="vans" element={<Vans />} />
-      <Route path="vans/:id" element={<VanDetails />} />
+      <Route path="vans/:vanId" element={<VanDetails />} />
+      <Route path="host" element={<HostLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="/host/income" element={<Income />} />
+        <Route path="/host/vans" element={<ListedVans />} />
+        <Route path="/host/reviews" element={<Reviews />} />
+      </Route>
     </Route>
   )
 )

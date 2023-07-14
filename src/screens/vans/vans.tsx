@@ -1,3 +1,4 @@
+import { Loading } from '@/loading'
 import { slugfy } from '@/resources/utils'
 import { Title } from '@/title'
 import { VanLabel } from '@/van-label'
@@ -34,7 +35,7 @@ export const Vans = () => {
     getData()
   }, [])
 
-  return (
+  return data ? (
     <div className="container max-w-4xl mx-auto py-14 px-4">
       <Title heading="h1" className="text-[2rem] font-bold leading-[1.1875em]">
         Explore our van options
@@ -63,42 +64,41 @@ export const Vans = () => {
       </div>
 
       <div className="grid py-14 grid-cols-[repeat(auto-fill,_minmax(230px,_1fr))] gap-y-8 gap-x-7">
-        {data &&
-          data.map((van) => (
-            <Link key={van.id} to={`${slugfy(van.name)}-${van.id}`}>
-              <div className="flex flex-col gap-[10px]">
-                <img
-                  className="rounded-md min-h-[230px]"
-                  src={van.imageUrl}
-                  alt={`${van.name} illustration image`}
-                />
+        {data.map((van) => (
+          <Link key={van.id} to={`${slugfy(van.name)}-${van.id}`}>
+            <div className="flex flex-col gap-[10px]">
+              <img
+                className="rounded-md min-h-[230px]"
+                src={van.imageUrl}
+                alt={`${van.name} illustration image`}
+              />
 
-                <div className="flex gap-7 justify-between">
-                  <div className="flex flex-col gap-1">
-                    <Title
-                      heading="h2"
-                      className="text-xl leading-8 font-semibold"
-                    >
-                      {van.name}
-                    </Title>
+              <div className="flex gap-7 justify-between">
+                <div className="flex flex-col gap-1">
+                  <Title
+                    heading="h2"
+                    className="text-xl leading-8 font-semibold"
+                  >
+                    {van.name}
+                  </Title>
 
-                    <VanLabel ele="span" type={van.type} />
-                  </div>
+                  <VanLabel ele="span" type={van.type} />
+                </div>
 
-                  <div className="flex flex-col items-end">
-                    <span className="text-xl leading-8 font-semibold">
-                      ${van.price}
-                    </span>
+                <div className="flex flex-col items-end">
+                  <span className="text-xl leading-8 font-semibold">
+                    ${van.price}
+                  </span>
 
-                    <span className="text-sm text-black-200 mt-[-6px]">
-                      /day
-                    </span>
-                  </div>
+                  <span className="text-sm text-black-200 mt-[-6px]">/day</span>
                 </div>
               </div>
-            </Link>
-          ))}
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
+  ) : (
+    <Loading />
   )
 }

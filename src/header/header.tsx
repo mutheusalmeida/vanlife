@@ -21,6 +21,19 @@ export const Header = () => {
                   isActive ? 'text-black underline' : ''
                 )
               }}
+              to="/host"
+            >
+              Host
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) => {
+                return twMerge(
+                  'hover:text-black hover:underline',
+                  isActive ? 'text-black underline' : ''
+                )
+              }}
               to="/about"
             >
               About
