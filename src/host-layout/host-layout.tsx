@@ -29,8 +29,11 @@ export const HostLayout = () => {
 
   return (
     <div>
-      <nav className="text-black-100" aria-label="Host navigation">
-        <ul className="flex gap-6 font-semibold">
+      <nav
+        className="container max-w-4xl mx-auto px-4 mt-8 mb-11 text-black-100"
+        aria-label="Host navigation"
+      >
+        <ul className="flex flex-wrap gap-y-3 gap-x-6 font-semibold">
           {nav.map(({ id, path, label }) => (
             <li key={id}>
               <NavLink

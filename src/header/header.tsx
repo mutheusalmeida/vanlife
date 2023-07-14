@@ -21,7 +21,7 @@ const nav = [
 
 export const Header = () => {
   return (
-    <div className="container flex justify-between items-center mx-auto py-7 px-8">
+    <div className="container flex justify-between items-center mx-auto py-7 px-4">
       <h1
         className="uppercase font-black text-black text-2xl"
         aria-label="VanLife logo"
