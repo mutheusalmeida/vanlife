@@ -31,9 +31,9 @@ export const routes = createBrowserRouter(
       <Route path="vans/:vanId" element={<VanDetails />} />
       <Route path="host" element={<HostLayout />}>
         <Route index element={<Dashboard />} />
-        <Route path="/host/income" element={<Income />} />
-        <Route path="/host/vans" element={<ListedVans />} />
-        <Route path="/host/reviews" element={<Reviews />} />
+        <Route path="income" element={<Income />} />
+        <Route path="vans" element={<ListedVans />} />
+        <Route path="reviews" element={<Reviews />} />
       </Route>
     </Route>
   )
