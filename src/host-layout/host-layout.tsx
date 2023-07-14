@@ -42,7 +42,7 @@ export const HostLayout = () => {
 
                   return twMerge(
                     'text-lg font-medium hover:text-black hover:underline',
-                    isActive ? 'text-black underline font-bold' : ''
+                    isActive ? 'text-black underline' : ''
                   )
                 }}
                 to={path}
