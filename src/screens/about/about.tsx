@@ -31,7 +31,7 @@ export const About = () => {
           </p>
         </div>
 
-        <div className="max-w-[494px] px-9 py-8 rounded-md bg-orange-300 mt-14">
+        <div className="max-w-[494px] px-9 py-8 rounded-md bg-orange-400 mt-14">
           <Title heading="h2" className="text-2xl font-bold">
             Your destination is waiting. <br /> Your van is ready.
           </Title>
