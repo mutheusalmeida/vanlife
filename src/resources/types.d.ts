@@ -6,5 +6,6 @@ declare module 'vans' {
     description: string
     imageUrl: string
     type: 'luxury' | 'simple' | 'rugged'
+    hostId: string
   }
 }

@@ -1,11 +1,25 @@
-import { createServer, Model } from 'miragejs'
+import { createServer, Model, Registry } from 'miragejs'
+import { ModelDefinition } from 'miragejs/-types'
+import Schema from 'miragejs/orm/schema'
+import { VanType } from 'vans'
+
+const VanModel: ModelDefinition<VanType> = Model.extend({})
+
+type AppRegistry = Registry<
+  {
+    vans: typeof VanModel
+  },
+  NonNullable<unknown>
+>
+
+type AppSchema = Schema<AppRegistry>
 
 export function makeServer({ environment = 'test' } = {}) {
   const server = createServer({
     environment,
 
     models: {
-      vans: Model,
+      vans: VanModel,
     },
 
     seeds(server) {
@@ -18,6 +32,7 @@ export function makeServer({ environment = 'test' } = {}) {
         imageUrl:
           'https://assets.scrimba.com/advanced-react/react-router/modest-explorer.png',
         type: 'simple',
+        hostId: '492',
       })
       server.create('van', {
         id: '2',
@@ -28,6 +43,7 @@ export function makeServer({ environment = 'test' } = {}) {
         imageUrl:
           'https://assets.scrimba.com/advanced-react/react-router/beach-bum.png',
         type: 'rugged',
+        hostId: '456',
       })
       server.create('van', {
         id: '3',
@@ -38,6 +54,7 @@ export function makeServer({ environment = 'test' } = {}) {
         imageUrl:
           'https://assets.scrimba.com/advanced-react/react-router/reliable-red.png',
         type: 'luxury',
+        hostId: '456',
       })
       server.create('van', {
         id: '4',
@@ -48,6 +65,7 @@ export function makeServer({ environment = 'test' } = {}) {
         imageUrl:
           'https://assets.scrimba.com/advanced-react/react-router/dreamfinder.png',
         type: 'simple',
+        hostId: '123',
       })
       server.create('van', {
         id: '5',
@@ -58,6 +76,7 @@ export function makeServer({ environment = 'test' } = {}) {
         imageUrl:
           'https://assets.scrimba.com/advanced-react/react-router/the-cruiser.png',
         type: 'luxury',
+        hostId: '123',
       })
       server.create('van', {
         id: '6',
@@ -68,18 +87,29 @@ export function makeServer({ environment = 'test' } = {}) {
         imageUrl:
           'https://assets.scrimba.com/advanced-react/react-router/green-wonder.png',
         type: 'rugged',
+        hostId: '123',
       })
     },
 
     routes() {
       this.namespace = 'api'
 
-      this.get('/vans', (schema) => schema.all('vans'))
+      this.get('/vans', (schema: AppSchema) => schema.all('vans'))
 
-      this.get('/vans/:id', (schema, request) => {
+      this.get('/vans/:id', (schema: AppSchema, request) => {
         const { id } = request.params
 
         return schema.find('vans', id)
+      })
+
+      this.get('/host/vans', (schema: AppSchema) => {
+        return schema.where('vans', { hostId: '123' })
+      })
+
+      this.get('/host/vans/:id', (schema: AppSchema, request) => {
+        const { id } = request.params
+
+        return schema.where('vans', { id, hostId: '123' })
       })
     },
   })
