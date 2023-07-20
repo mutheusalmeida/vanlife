@@ -1,12 +1,12 @@
-import { Dashboard } from '@/dashboard'
 import { ErrorPage } from '@/error-page'
-import { HostLayout } from '@/host-layout'
-import { Income } from '@/income'
-import { Layout } from '@/layout'
-import { ListedVans } from '@/listed-vans'
-import { Reviews } from '@/reviews'
+import { HostLayout } from '@/layouts/host-layout'
+import { MainLayout } from '@/layouts/main-layout'
 import { About } from '@/screens/about'
+import { Dashboard } from '@/screens/dashboard'
 import { Home } from '@/screens/home'
+import { Income } from '@/screens/income'
+import { ListedVans } from '@/screens/listed-vans'
+import { Reviews } from '@/screens/reviews'
 import { VanDetails } from '@/screens/van-details'
 import { Vans } from '@/screens/vans'
 import {
@@ -18,11 +18,11 @@ import {
 export const routes = createBrowserRouter(
   createRoutesFromChildren(
     <Route
-      element={<Layout />}
+      element={<MainLayout />}
       errorElement={
-        <Layout>
+        <MainLayout>
           <ErrorPage />
-        </Layout>
+        </MainLayout>
       }
     >
       <Route index element={<Home />} />
