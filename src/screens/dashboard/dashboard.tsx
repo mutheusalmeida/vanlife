@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import type { VanType } from 'vans'
 
 export const Dashboard = () => {
-  const [, setData] = useState<VanType[] | null>(null)
+  const [data, setData] = useState<VanType[] | null>(null)
 
   useEffect(() => {
     const getData = async () => {
@@ -20,7 +20,7 @@ export const Dashboard = () => {
 
   return (
     <>
-      <div className="bg-orange-200 px-4 py-9">
+      <div className="bg-orange-200 px-4 py-11">
         <div className="container max-w-4xl mx-auto">
           <Title className="font-bold mb-6" heading="h2">
             Welcome!
@@ -33,7 +33,7 @@ export const Dashboard = () => {
 
             <Link
               className="hover:text-black-100 hover:underline transition-colors"
-              to="vans"
+              to="income"
             >
               Details
             </Link>
@@ -67,6 +67,33 @@ export const Dashboard = () => {
           >
             Details
           </Link>
+        </div>
+      </div>
+
+      <div className="bg-orange-100 px-4 py-11">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex justify-between gap-3">
+            <Title className="text-2xl font-bold" heading="h2">
+              Your listed vans
+            </Title>
+
+            <Link
+              className="hover:text-black-100 hover:underline transition-colors"
+              to="vans"
+            >
+              Details
+            </Link>
+          </div>
+
+          <div className="">
+            {data?.map(({ id, name }) => (
+              <div key={id}>
+                <Title className="text-xl font-semibold" heading="h3">
+                  {name}
+                </Title>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
