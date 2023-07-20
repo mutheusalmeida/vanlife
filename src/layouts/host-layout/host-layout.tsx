@@ -1,4 +1,4 @@
-import { NavLink, Outlet, matchPath, useLocation } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 
 const nav = [
@@ -25,8 +25,6 @@ const nav = [
 ]
 
 export const HostLayout = () => {
-  const location = useLocation()
-
   return (
     <div>
       <nav
@@ -37,15 +35,14 @@ export const HostLayout = () => {
           {nav.map(({ id, path, label }) => (
             <li key={id}>
               <NavLink
-                className={() => {
-                  const isActive = matchPath(location.pathname, path)
-
-                  return twMerge(
+                className={({ isActive }) =>
+                  twMerge(
                     'text-lg font-medium hover:text-black hover:underline',
                     isActive ? 'text-black underline' : ''
                   )
-                }}
+                }
                 to={path}
+                end
               >
                 {label}
               </NavLink>
