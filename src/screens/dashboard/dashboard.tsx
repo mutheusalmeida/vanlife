@@ -1,5 +1,7 @@
 import { ReactComponent as StarSvg } from '@/assets/star-icon.svg'
+import { slugfy } from '@/resources/utils'
 import { Title } from '@/title'
+import Van from '@/van'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { VanType } from 'vans'
@@ -70,54 +72,28 @@ export const Dashboard = () => {
         </div>
       </div>
 
-      <div className="bg-orange-100 px-4 py-11">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex justify-between gap-3 mb-9">
-            <Title className="text-2xl font-bold" heading="h2">
-              Your listed vans
-            </Title>
+      <Van.Wrapper>
+        <div className="flex justify-between gap-3 mb-9">
+          <Title className="text-2xl font-bold" heading="h2">
+            Your listed vans
+          </Title>
 
-            <Link
-              className="hover:text-black-100 hover:underline transition-colors"
-              to="vans"
-            >
-              View all
-            </Link>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            {data?.map(({ id, imageUrl, price, name }) => (
-              <div
-                className="flex gap-4 items-center py-4 px-6 rounded-md bg-white"
-                key={id}
-              >
-                <img
-                  className="w-[66px] aspect-square rounded-md"
-                  src={imageUrl}
-                  alt="Van image"
-                />
-
-                <div className="flex flex-col">
-                  <Title className="text-xl font-semibold" heading="h3">
-                    {name}
-                  </Title>
-
-                  <span className="text-black-100 font-medium">
-                    ${price}/day
-                  </span>
-                </div>
-
-                <Link
-                  className="ml-auto hover:text-black-100 hover:underline transition-colors"
-                  to="vans"
-                >
-                  Edit
-                </Link>
-              </div>
-            ))}
-          </div>
+          <Van.Link path="vans">View all</Van.Link>
         </div>
-      </div>
+
+        <Van.Container>
+          {data?.map(({ id, imageUrl, price, name }) => (
+            <div
+              className="flex justify-between gap-4 items-center py-4 px-6 rounded-md bg-white"
+              key={id}
+            >
+              <Van.Content imageUrl={imageUrl} price={price} name={name} />
+
+              <Van.Link path={`vans/${slugfy(name)}`}>Edit</Van.Link>
+            </div>
+          ))}
+        </Van.Container>
+      </Van.Wrapper>
     </>
   )
 }
