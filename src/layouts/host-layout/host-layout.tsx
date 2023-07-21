@@ -43,7 +43,7 @@ export const HostLayout = () => {
                     )
                   }
                   to={path}
-                  end
+                  end={path === '/host'}
                 >
                   {label}
                 </NavLink>

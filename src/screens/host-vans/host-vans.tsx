@@ -1,3 +1,4 @@
+import { Loading } from '@/loading'
 import { slugfy } from '@/resources/utils'
 import { Title } from '@/title'
 import Van from '@/van'
@@ -27,17 +28,21 @@ export const ListedVans = () => {
         </Title>
       </div>
 
-      <Van.Container>
-        {data?.map(({ id, imageUrl, price, name }) => (
-          <Link
-            className="flex justify-between gap-4 items-center py-4 px-6 rounded-md bg-white"
-            key={id}
-            to={`${slugfy(name)}`}
-          >
-            <Van.Content imageUrl={imageUrl} price={price} name={name} />
-          </Link>
-        ))}
-      </Van.Container>
+      {data ? (
+        <Van.Container>
+          {data.map(({ id, imageUrl, price, name }) => (
+            <Link
+              className="flex justify-between gap-4 items-center py-4 px-6 rounded-md bg-white"
+              key={id}
+              to={`${slugfy(name)}-${id}`}
+            >
+              <Van.Content imageUrl={imageUrl} price={price} name={name} />
+            </Link>
+          ))}
+        </Van.Container>
+      ) : (
+        <Loading />
+      )}
     </Van.Wrapper>
   )
 }

@@ -1,4 +1,5 @@
 import { ReactComponent as StarSvg } from '@/assets/star-icon.svg'
+import { Loading } from '@/loading'
 import { slugfy } from '@/resources/utils'
 import { Title } from '@/title'
 import Van from '@/van'
@@ -81,18 +82,22 @@ export const Dashboard = () => {
           <Van.Link path="vans">View all</Van.Link>
         </div>
 
-        <Van.Container>
-          {data?.map(({ id, imageUrl, price, name }) => (
-            <div
-              className="flex justify-between gap-4 items-center py-4 px-6 rounded-md bg-white"
-              key={id}
-            >
-              <Van.Content imageUrl={imageUrl} price={price} name={name} />
+        {data ? (
+          <Van.Container>
+            {data.map(({ id, imageUrl, price, name }) => (
+              <div
+                className="flex justify-between gap-4 items-center py-4 px-6 rounded-md bg-white"
+                key={id}
+              >
+                <Van.Content imageUrl={imageUrl} price={price} name={name} />
 
-              <Van.Link path={`vans/${slugfy(name)}`}>Edit</Van.Link>
-            </div>
-          ))}
-        </Van.Container>
+                <Van.Link path={`vans/${slugfy(name)}-${id}`}>Edit</Van.Link>
+              </div>
+            ))}
+          </Van.Container>
+        ) : (
+          <Loading />
+        )}
       </Van.Wrapper>
     </>
   )

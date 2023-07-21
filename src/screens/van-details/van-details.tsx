@@ -1,6 +1,7 @@
 import { ReactComponent as ArrowIcon } from '@/assets/arrow-icon.svg'
 import { Button } from '@/button'
 import { Loading } from '@/loading'
+import { NavigateButton } from '@/navigate-button'
 import { Title } from '@/title'
 import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
@@ -27,12 +28,9 @@ export const VanDetails = () => {
 
   return data ? (
     <div className="container max-w-[497px] mx-auto my-10">
-      <Link
-        className="flex items-center gap-2 font-medium underline text-black-200 hover:text-black-100"
-        to="/vans"
-      >
+      <NavigateButton path="/vans">
         <ArrowIcon /> <span>Back to all vans</span>
-      </Link>
+      </NavigateButton>
 
       <img className="rounded-md mt-10 mb-12 h-[497px]" src={data.imageUrl} />
 
