@@ -1,12 +1,14 @@
 import { ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 type VanWrapperProps = {
   children: ReactNode
+  className?: string
 }
 
-export const VanWrapper = ({ children }: VanWrapperProps) => {
+export const VanWrapper = ({ children, className }: VanWrapperProps) => {
   return (
-    <div className="bg-orange-100 px-4 py-11">
+    <div className={twMerge('px-4 py-11', className)}>
       <div className="max-w-4xl mx-auto">{children}</div>
     </div>
   )
