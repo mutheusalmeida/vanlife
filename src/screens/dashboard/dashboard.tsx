@@ -72,7 +72,7 @@ export const Dashboard = () => {
 
       <div className="bg-orange-100 px-4 py-11">
         <div className="max-w-4xl mx-auto">
-          <div className="flex justify-between gap-3">
+          <div className="flex justify-between gap-3 mb-9">
             <Title className="text-2xl font-bold" heading="h2">
               Your listed vans
             </Title>
@@ -81,16 +81,38 @@ export const Dashboard = () => {
               className="hover:text-black-100 hover:underline transition-colors"
               to="vans"
             >
-              Details
+              View all
             </Link>
           </div>
 
-          <div className="">
-            {data?.map(({ id, name }) => (
-              <div key={id}>
-                <Title className="text-xl font-semibold" heading="h3">
-                  {name}
-                </Title>
+          <div className="flex flex-col gap-4">
+            {data?.map(({ id, imageUrl, price, name }) => (
+              <div
+                className="flex gap-4 items-center py-4 px-6 rounded-md bg-white"
+                key={id}
+              >
+                <img
+                  className="w-[66px] aspect-square rounded-md"
+                  src={imageUrl}
+                  alt="Van image"
+                />
+
+                <div className="flex flex-col">
+                  <Title className="text-xl font-semibold" heading="h3">
+                    {name}
+                  </Title>
+
+                  <span className="text-black-100 font-medium">
+                    ${price}/day
+                  </span>
+                </div>
+
+                <Link
+                  className="ml-auto hover:text-black-100 hover:underline transition-colors"
+                  to="vans"
+                >
+                  Edit
+                </Link>
               </div>
             ))}
           </div>
