@@ -4,9 +4,9 @@ import { NavigateButton } from '@/navigate-button'
 import { Title } from '@/title'
 import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
-import { NavLink, Outlet, useParams } from 'react-router-dom'
+import { NavLink, Outlet, useOutletContext, useParams } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
-import { VanType } from 'vans'
+import type { VanType } from 'vans'
 
 const nav = [
   {
@@ -80,7 +80,7 @@ export const HostVanDetailsLayout = () => {
             </div>
 
             <nav
-              className="container max-w-4xl mx-auto mt-8 mb-11 text-black-100"
+              className="my-7 text-black-100"
               aria-label="Van details navigation"
             >
               <ul className="flex flex-wrap gap-y-3 gap-x-6">
@@ -103,7 +103,7 @@ export const HostVanDetailsLayout = () => {
               </ul>
             </nav>
 
-            <Outlet />
+            <Outlet context={{ data }} />
           </div>
         ) : (
           <Loading />
@@ -112,3 +112,5 @@ export const HostVanDetailsLayout = () => {
     </div>
   )
 }
+
+export const useHostVan = () => useOutletContext<{ data: VanType }>()
