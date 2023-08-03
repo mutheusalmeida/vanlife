@@ -8,3 +8,16 @@ export function slugfy(value: string) {
     .replace(/^-+/, '')
     .replace(/-+$/, '')
 }
+
+export function formatCurrency(
+  value: number,
+  options?: Intl.NumberFormatOptions
+) {
+  const formatOptions = options || {
+    style: 'currency',
+    maximumFractionDigits: 2,
+    currency: 'USD',
+  }
+
+  return Intl.NumberFormat('en', formatOptions).format(value)
+}

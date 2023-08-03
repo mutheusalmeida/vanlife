@@ -5,22 +5,22 @@ const nav = [
   {
     id: 0,
     label: 'Dashboard',
-    path: '/host',
+    path: '',
   },
   {
     id: 1,
     label: 'Income',
-    path: '/host/income',
+    path: 'income',
   },
   {
     id: 2,
     label: 'Vans',
-    path: '/host/vans',
+    path: 'vans',
   },
   {
     id: 3,
     label: 'Reviews',
-    path: '/host/reviews',
+    path: 'reviews',
   },
 ]
 
@@ -43,7 +43,7 @@ export const HostLayout = () => {
                     )
                   }
                   to={path}
-                  end={path === '/host'}
+                  end={path === ''}
                 >
                   {label}
                 </NavLink>
