@@ -1,6 +1,7 @@
 import { ReactComponent as ArrowIcon } from '@/assets/arrow-icon.svg'
 import { Loading } from '@/loading'
 import { NavigateButton } from '@/navigate-button'
+import { formatCurrency } from '@/resources/utils'
 import { Title } from '@/title'
 import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
@@ -71,9 +72,12 @@ export const HostVanDetailsLayout = () => {
                     {data.name}
                   </Title>
 
-                  <p className="font-medium">
-                    <span className="text-xl font-bold">${data.price}</span>
-                    /day
+                  <p className="text-xl font-bold leading-none">
+                    {formatCurrency(data.price, { maximumFractionDigits: 0 })}
+
+                    <span className="align-bottom font-medium text-base">
+                      /day
+                    </span>
                   </p>
                 </div>
               </div>

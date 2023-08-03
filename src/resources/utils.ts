@@ -13,10 +13,11 @@ export function formatCurrency(
   value: number,
   options?: Intl.NumberFormatOptions
 ) {
-  const formatOptions = options || {
+  const formatOptions = {
     style: 'currency',
     maximumFractionDigits: 2,
     currency: 'USD',
+    ...options,
   }
 
   return Intl.NumberFormat('en', formatOptions).format(value)
