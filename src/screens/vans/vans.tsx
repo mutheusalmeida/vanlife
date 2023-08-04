@@ -24,6 +24,7 @@ const labels: LabelsType[] = [
 export const Vans = () => {
   const [data, setData] = useState<VanType[] | null>(null)
   const [searchParams, setSearchParams] = useSearchParams()
+  const typeParam = searchParams.get('type')?.toLocaleLowerCase()
 
   useEffect(() => {
     const getData = async () => {
@@ -36,13 +37,12 @@ export const Vans = () => {
     getData()
   }, [])
 
-  let filteredData: VanType[] | null | undefined = data?.filter(
-    (van) => van.type === searchParams.get('type')
-  )
+  const filteredData = data?.filter((van) => van.type === typeParam)
 
-  filteredData = filteredData && filteredData.length > 0 ? filteredData : data
+  const displayData =
+    filteredData && filteredData.length > 0 ? filteredData : data
 
-  return filteredData ? (
+  return displayData ? (
     <div className="container max-w-4xl mx-auto py-14 px-4">
       <Title heading="h1" className="text-[2rem] font-bold leading-[1.1875em]">
         Explore our van options
@@ -61,8 +61,8 @@ export const Vans = () => {
                 : type === 'luxury'
                 ? 'hover:bg-black'
                 : 'hover:bg-green',
-              searchParams.get('type') === type ? 'text-orange-200' : '',
-              searchParams.get('type') === type
+              typeParam === type ? 'text-orange-200' : '',
+              typeParam === type
                 ? type === 'simple'
                   ? 'bg-orange'
                   : type === 'luxury'
@@ -83,7 +83,7 @@ export const Vans = () => {
       </div>
 
       <div className="grid py-14 grid-cols-[repeat(auto-fill,_minmax(230px,_1fr))] gap-y-8 gap-x-7">
-        {filteredData.map((van) => (
+        {displayData.map((van) => (
           <Link key={van.id} to={`${slugfy(van.name)}-${van.id}`}>
             <div className="flex flex-col gap-[10px]">
               <img
