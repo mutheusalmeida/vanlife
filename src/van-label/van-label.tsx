@@ -5,9 +5,15 @@ import { VanType } from 'vans'
 type VanLabelProps = {
   ele: ElementType
   className?: string
+  onClick?: () => void
 } & Partial<Pick<VanType, 'type'>>
 
-export const VanLabel = ({ type, ele: Ele, className }: VanLabelProps) => {
+export const VanLabel = ({
+  type,
+  ele: Ele,
+  className,
+  onClick,
+}: VanLabelProps) => {
   return (
     <Ele
       className={twMerge(
@@ -21,6 +27,7 @@ export const VanLabel = ({ type, ele: Ele, className }: VanLabelProps) => {
           className
         )
       )}
+      onClick={onClick}
     >
       {type}
     </Ele>

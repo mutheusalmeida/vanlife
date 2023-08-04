@@ -3,7 +3,7 @@ import { slugfy } from '@/resources/utils'
 import { Title } from '@/title'
 import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import type { VanType } from 'vans'
 
@@ -23,6 +23,7 @@ const labels: LabelsType[] = [
 
 export const Vans = () => {
   const [data, setData] = useState<VanType[] | null>(null)
+  const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
     const getData = async () => {
@@ -35,7 +36,13 @@ export const Vans = () => {
     getData()
   }, [])
 
-  return data ? (
+  let filteredData: VanType[] | null | undefined = data?.filter(
+    (van) => van.type === searchParams.get('type')
+  )
+
+  filteredData = filteredData && filteredData.length > 0 ? filteredData : data
+
+  return filteredData ? (
     <div className="container max-w-4xl mx-auto py-14 px-4">
       <Title heading="h1" className="text-[2rem] font-bold leading-[1.1875em]">
         Explore our van options
@@ -46,25 +53,37 @@ export const Vans = () => {
           <VanLabel
             key={index}
             ele="button"
+            onClick={() => setSearchParams({ type })}
             className={twMerge(
               'transition-all bg-orange-200 text-black-100 hover:text-orange-200 h-[2.375em] min-w-[6.5em] leading-[2.375em]',
               type === 'simple'
                 ? 'hover:bg-orange'
                 : type === 'luxury'
                 ? 'hover:bg-black'
-                : 'hover:bg-green'
+                : 'hover:bg-green',
+              searchParams.get('type') === type ? 'text-orange-200' : '',
+              searchParams.get('type') === type
+                ? type === 'simple'
+                  ? 'bg-orange'
+                  : type === 'luxury'
+                  ? 'bg-black'
+                  : 'bg-green'
+                : ''
             )}
             type={type}
           />
         ))}
 
-        <button className="flex text-black-100 font-medium justify-center items-center h-[2.375em] min-w-[6.5em] leading-[2.375em] max-w-max rounded-md hover:opacity-80 transition-all underline ml-auto">
+        <button
+          onClick={() => setSearchParams(undefined)}
+          className="flex text-black-100 font-medium justify-center items-center h-[2.375em] min-w-[6.5em] leading-[2.375em] max-w-max rounded-md hover:opacity-80 transition-all underline ml-auto"
+        >
           Clear filters
         </button>
       </div>
 
       <div className="grid py-14 grid-cols-[repeat(auto-fill,_minmax(230px,_1fr))] gap-y-8 gap-x-7">
-        {data.map((van) => (
+        {filteredData.map((van) => (
           <Link key={van.id} to={`${slugfy(van.name)}-${van.id}`}>
             <div className="flex flex-col gap-[10px]">
               <img
