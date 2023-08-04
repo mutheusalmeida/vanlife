@@ -37,6 +37,18 @@ export const Vans = () => {
     getData()
   }, [])
 
+  const handleSearchParams = (type: string, value: string | undefined) => {
+    setSearchParams((prev) => {
+      if (value === undefined) {
+        prev.delete(type)
+      } else {
+        prev.set(type, value)
+      }
+
+      return prev
+    })
+  }
+
   const filteredData = data?.filter((van) => van.type === typeParam)
 
   const displayData =
@@ -53,7 +65,7 @@ export const Vans = () => {
           <VanLabel
             key={index}
             ele="button"
-            onClick={() => setSearchParams({ type })}
+            onClick={() => handleSearchParams('type', type)}
             className={twMerge(
               'transition-all bg-orange-200 text-black-100 hover:text-orange-200 h-[2.375em] min-w-[6.5em] leading-[2.375em]',
               type === 'simple'
@@ -75,7 +87,7 @@ export const Vans = () => {
         ))}
 
         <button
-          onClick={() => setSearchParams(undefined)}
+          onClick={() => handleSearchParams('type', undefined)}
           className="flex text-black-100 font-medium justify-center items-center h-[2.375em] min-w-[6.5em] leading-[2.375em] max-w-max rounded-md hover:opacity-80 transition-all underline ml-auto"
         >
           Clear filters
