@@ -28,7 +28,7 @@ export const VanDetails = () => {
 
   return data ? (
     <div className="container max-w-[497px] mx-auto my-10">
-      <NavigateButton path="/vans">
+      <NavigateButton path=".." relative="path">
         <ArrowIcon /> <span>Back to all vans</span>
       </NavigateButton>
 

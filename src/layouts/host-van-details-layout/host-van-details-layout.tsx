@@ -48,7 +48,7 @@ export const HostVanDetailsLayout = () => {
   return (
     <div className="px-4 pb-9">
       <div className="max-w-4xl mx-auto">
-        <NavigateButton className="mb-9" path="/host/vans">
+        <NavigateButton className="mb-9" path=".." relative="path">
           <ArrowIcon /> <span>Back to all vans</span>
         </NavigateButton>
 

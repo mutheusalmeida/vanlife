@@ -1,17 +1,19 @@
 import { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, RelativeRoutingType } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 
 type NavigateButtonProps = {
   children: ReactNode
   path: string
   className?: string
+  relative?: RelativeRoutingType
 }
 
 export const NavigateButton = ({
   children,
   path,
   className,
+  relative = 'route',
 }: NavigateButtonProps) => {
   return (
     <Link
@@ -20,6 +22,7 @@ export const NavigateButton = ({
         className
       )}
       to={path}
+      relative={relative}
     >
       {children}
     </Link>
