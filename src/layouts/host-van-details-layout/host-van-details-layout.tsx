@@ -13,7 +13,7 @@ const nav = [
   {
     id: 0,
     label: 'Details',
-    path: '',
+    path: '.',
   },
   {
     id: 1,
@@ -98,7 +98,7 @@ export const HostVanDetailsLayout = () => {
                         )
                       }
                       to={path}
-                      end={path === ''}
+                      end={path === '.'}
                     >
                       {label}
                     </NavLink>

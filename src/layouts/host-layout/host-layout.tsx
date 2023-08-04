@@ -5,7 +5,7 @@ const nav = [
   {
     id: 0,
     label: 'Dashboard',
-    path: '',
+    path: '.',
   },
   {
     id: 1,
@@ -43,7 +43,7 @@ export const HostLayout = () => {
                     )
                   }
                   to={path}
-                  end={path === ''}
+                  end={path === '.'}
                 >
                   {label}
                 </NavLink>

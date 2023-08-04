@@ -34,12 +34,12 @@ export const Header = () => {
           {nav.map(({ id, label, path }) => (
             <li key={id}>
               <NavLink
-                className={({ isActive }) => {
-                  return twMerge(
+                className={({ isActive }) =>
+                  twMerge(
                     'hover:text-black hover:underline',
                     isActive ? 'text-black underline' : ''
                   )
-                }}
+                }
                 to={path}
               >
                 {label}
