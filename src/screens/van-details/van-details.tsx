@@ -13,6 +13,7 @@ export const VanDetails = () => {
   const [data, setData] = useState<VanType | null>(null)
   const location = useLocation()
   const prevSearch = location.state?.search || ''
+  const type = new URLSearchParams(location.state?.search).get('type')
 
   useEffect(() => {
     const getData = async () => {
@@ -31,7 +32,11 @@ export const VanDetails = () => {
   return data ? (
     <div className="container max-w-[497px] mx-auto my-10">
       <NavigateButton path={`..${prevSearch}`} relative="path">
-        <ArrowIcon /> <span>Back to all vans</span>
+        <ArrowIcon />{' '}
+        <span>
+          Back to{' '}
+          {type ? type.slice(0, 1).toUpperCase() + type.slice(1) : 'all'} vans
+        </span>
       </NavigateButton>
 
       <img className="rounded-md mt-10 mb-12 h-[497px]" src={data.imageUrl} />
