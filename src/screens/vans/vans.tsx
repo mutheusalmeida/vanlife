@@ -96,7 +96,11 @@ export const Vans = () => {
 
       <div className="grid py-14 grid-cols-[repeat(auto-fill,_minmax(230px,_1fr))] gap-y-8 gap-x-7">
         {displayData.map((van) => (
-          <Link key={van.id} to={`${slugfy(van.name)}-${van.id}`}>
+          <Link
+            state={{ search: `?${searchParams.toString()}` }}
+            key={van.id}
+            to={`${slugfy(van.name)}-${van.id}`}
+          >
             <div className="flex flex-col gap-[10px]">
               <img
                 className="rounded-md min-h-[230px]"

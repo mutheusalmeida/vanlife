@@ -5,12 +5,14 @@ import { NavigateButton } from '@/navigate-button'
 import { Title } from '@/title'
 import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import type { VanType } from 'vans'
 
 export const VanDetails = () => {
   const { vanId } = useParams()
   const [data, setData] = useState<VanType | null>(null)
+  const location = useLocation()
+  const prevSearch = location.state?.search || ''
 
   useEffect(() => {
     const getData = async () => {
@@ -28,7 +30,7 @@ export const VanDetails = () => {
 
   return data ? (
     <div className="container max-w-[497px] mx-auto my-10">
-      <NavigateButton path=".." relative="path">
+      <NavigateButton path={`..${prevSearch}`} relative="path">
         <ArrowIcon /> <span>Back to all vans</span>
       </NavigateButton>
 
