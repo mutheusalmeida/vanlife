@@ -1,4 +1,4 @@
-import { createServer, Model, Registry } from 'miragejs'
+import { createServer, Model, Registry, Response } from 'miragejs'
 import { ModelDefinition } from 'miragejs/-types'
 import Schema from 'miragejs/orm/schema'
 import { VanType } from 'vans'
@@ -93,11 +93,16 @@ export function makeServer({ environment = 'test' } = {}) {
 
     routes() {
       this.namespace = 'api'
+      this.timing = 1200
 
       this.get('/vans', (schema: AppSchema) => schema.all('vans'))
 
       this.get('/vans/:id', (schema: AppSchema, request) => {
         const { id } = request.params
+
+        if (!schema.find('vans', id)) {
+          return new Response(404)
+        }
 
         return schema.find('vans', id)
       })

@@ -6,11 +6,12 @@ import { Title } from '@/title'
 import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
-import type { VanType } from 'vans'
+import type { ErrorType, VanType } from 'vans'
 
 export const VanDetails = () => {
   const { vanId } = useParams()
   const [data, setData] = useState<VanType | null>(null)
+  const [error, setError] = useState<ErrorType | null>(null)
   const location = useLocation()
   const prevSearch = location.state?.search || ''
   const type = new URLSearchParams(location.state?.search).get('type')
@@ -19,15 +20,27 @@ export const VanDetails = () => {
     const getData = async () => {
       if (vanId) {
         const [slugId] = vanId.split('-').slice(-1)
-        const res = await fetch(`/api/vans/${slugId}`)
-        const data = await res.json()
 
+        const response = await fetch(`/api/vans/${slugId}`)
+
+        if (!response.ok) {
+          setError({ message: response.statusText, status: response.status })
+        }
+
+        const data = await response.json()
         setData(data?.vans)
       }
     }
 
     getData()
   }, [vanId])
+
+  if (error) {
+    throw new Response(error.message, {
+      statusText: error.message,
+      status: error.status,
+    })
+  }
 
   return data ? (
     <div className="container max-w-[497px] mx-auto my-10">

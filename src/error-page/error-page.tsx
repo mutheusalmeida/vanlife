@@ -13,6 +13,8 @@ export const ErrorPage = () => {
     errorMsg = error.message
   }
 
+  console.log(error)
+
   return (
     <div className="container max-w-md px-4 h-full mx-auto flex flex-col items-center text-center justify-center">
       <Title heading="h2">Oh, no!</Title>

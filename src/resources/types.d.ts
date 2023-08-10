@@ -8,4 +8,9 @@ declare module 'vans' {
     type: 'luxury' | 'simple' | 'rugged'
     hostId: string
   }
+
+  export type ErrorType = {
+    message: string
+    status: number
+  }
 }
