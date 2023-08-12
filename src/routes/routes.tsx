@@ -1,7 +1,9 @@
 import { ErrorPage } from '@/error-page'
+import { AuthLayout } from '@/layouts/auth-layout'
 import { HostLayout } from '@/layouts/host-layout'
 import { HostVanDetailsLayout } from '@/layouts/host-van-details-layout'
 import { MainLayout } from '@/layouts/main-layout'
+import { Login } from '@/login'
 import { About } from '@/screens/about'
 import { Dashboard } from '@/screens/dashboard'
 import { Home } from '@/screens/home'
@@ -33,17 +35,20 @@ export const routes = createBrowserRouter(
       <Route path="about" element={<About />} />
       <Route path="vans" element={<Vans />} />
       <Route path="vans/:vanId" element={<VanDetails />} />
-      <Route path="host" element={<HostLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="income" element={<Income />} />
-        <Route path="vans" element={<ListedVans />} />
-        <Route path="vans/:vanId" element={<HostVanDetailsLayout />}>
-          <Route index element={<HostVanDetails />} />
-          <Route path="pricing" element={<HostVanPricing />} />
-          <Route path="photos" element={<HostVanPhotos />} />
+      <Route element={<AuthLayout />}>
+        <Route path="host" element={<HostLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="income" element={<Income />} />
+          <Route path="vans" element={<ListedVans />} />
+          <Route path="vans/:vanId" element={<HostVanDetailsLayout />}>
+            <Route index element={<HostVanDetails />} />
+            <Route path="pricing" element={<HostVanPricing />} />
+            <Route path="photos" element={<HostVanPhotos />} />
+          </Route>
+          <Route path="reviews" element={<Reviews />} />
         </Route>
-        <Route path="reviews" element={<Reviews />} />
       </Route>
+      <Route path="login" element={<Login />} />
     </Route>
   )
 )

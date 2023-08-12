@@ -1,4 +1,4 @@
-import { ElementType, ReactNode } from 'react'
+import { ButtonHTMLAttributes, ElementType, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 type ButtonProps = {
@@ -7,7 +7,7 @@ type ButtonProps = {
   children: ReactNode
   className?: string
   variant?: 'primary' | 'secondary'
-}
+} & ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>
 
 export const Button = ({
   ele: Ele,
@@ -15,6 +15,7 @@ export const Button = ({
   children,
   className,
   variant = 'primary',
+  ...props
 }: ButtonProps) => {
   const style = twMerge(
     'font-bold px-4 h-[3.125em] flex justify-center rounded-md leading-[3.125em] text-white transition-all',
@@ -28,11 +29,15 @@ export const Button = ({
 
   if (to) {
     return (
-      <Ele className={style} to={to}>
+      <Ele className={style} to={to} {...props}>
         {children}
       </Ele>
     )
   }
 
-  return <Ele className={style}>{children}</Ele>
+  return (
+    <Ele className={style} {...props}>
+      {children}
+    </Ele>
+  )
 }

@@ -5,7 +5,8 @@ export default {
     colors: {
       white: '#FFF',
       'gray-100': '#DBDBDB',
-      'gray-200': '#AAA',
+      'gray-200': '#D1D5DB',
+      'gray-300': '#AAA',
       'orange-100': '#FFF7ED',
       'orange-200': '#FFEAD0',
       'orange-300': '#FFDDB2',
