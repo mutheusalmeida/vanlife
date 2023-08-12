@@ -1,3 +1,4 @@
+import { ReactComponent as UserIcon } from '@/assets/user-icon.svg'
 import { Link, NavLink } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 
@@ -46,6 +47,12 @@ export const Header = () => {
               </NavLink>
             </li>
           ))}
+
+          <li>
+            <button className="appearance-none">
+              <UserIcon />
+            </button>
+          </li>
         </ul>
       </nav>
     </div>
