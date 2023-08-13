@@ -21,13 +21,15 @@ export const ShowPassword = ({ children }: ShowPasswordProps) => {
     <>
       {children({ show })}
 
-      <button type="button" onClick={toggleShow} className="appearance-none">
-        {show ? (
-          <EyeIcon className="w-6 text-gray-300" />
-        ) : (
-          <EyeSlashIcon className="w-6 text-gray-300" />
-        )}
-      </button>
+      <div>
+        <button type="button" onClick={toggleShow} className="appearance-none">
+          {show ? (
+            <EyeIcon className="w-6 text-gray-300" />
+          ) : (
+            <EyeSlashIcon className="w-6 text-gray-300" />
+          )}
+        </button>
+      </div>
     </>
   )
 }

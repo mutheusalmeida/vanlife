@@ -1,6 +1,6 @@
-import { ReactComponent as ExclamationIcon } from '@/assets/exclamation-icon.svg'
 import { Button } from '@/button'
 import { Input } from '@/input'
+import { InputError } from '@/input-error'
 import { InputWrapper } from '@/input-wrapper'
 import { ShowPassword } from '@/show-password'
 import { Title } from '@/title'
@@ -55,11 +55,7 @@ export const Login = () => {
               {...register('email')}
             />
 
-            {errors.email && (
-              <button type="button" className="appearance-none">
-                <ExclamationIcon className="w-6 text-red" />
-              </button>
-            )}
+            {errors.email && <InputError message={errors.email.message} />}
           </InputWrapper>
 
           <InputWrapper>
@@ -76,9 +72,7 @@ export const Login = () => {
             </ShowPassword>
 
             {errors.password && (
-              <button type="button" className="appearance-none">
-                <ExclamationIcon className="w-6 text-red" />
-              </button>
+              <InputError message={errors.password.message} />
             )}
           </InputWrapper>
         </fieldset>
