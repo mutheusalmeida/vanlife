@@ -19,7 +19,7 @@ export const Toast = ({
   return (
     <ToastPrimitive.Provider swipeDirection="right">
       <ToastPrimitive.Root
-        className="bg-white rounded-lg border border-gray-100 p-4 flex gap-1 items-center justify-between drop-shadow-lg shadow-gray-200 data-[state='open']:animate-slideIn"
+        className="bg-white rounded-lg border border-gray-100 p-4 flex gap-1 items-center justify-between drop-shadow-lg shadow-gray-200 data-[state='open']:animate-slideIn data-[swipe='move']:translate-x-[var(--radix-toast-swipe-move-x)] data-[state='closed']:animate-hide data-[swipe='end']:animate-swipeOut data-[swipe='cancel']:translate-x-0 data-[swipe='cancel']:transition-[transform_200ms_ease-out]"
         {...props}
       >
         <div className="flex flex-col gap-1">
@@ -40,7 +40,7 @@ export const Toast = ({
           </ToastPrimitive.Action>
         )}
 
-        <ToastPrimitive.Close aria-label="Close">
+        <ToastPrimitive.Close asChild aria-label="Close">
           <button className="appearance-none p-[6px]" aria-hidden>
             <XMarkIcon className="w-5 text-black-100" />
           </button>
