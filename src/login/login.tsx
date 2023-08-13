@@ -7,6 +7,7 @@ import { Title } from '@/title'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
+import { twMerge } from 'tailwind-merge'
 import { z } from 'zod'
 
 const formSchema = z.object({
@@ -45,7 +46,12 @@ export const Login = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-[30.875em] mx-auto flex flex-col gap-5"
       >
-        <fieldset className="appearance-none flex flex-col rounded-md border border-gray-200 overflow-hidden [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:border-gray-200">
+        <fieldset
+          className={twMerge(
+            'appearance-none flex flex-col rounded-md border border-gray-200 overflow-hidden [&>*:not(:last-child)]:border-b [&>*:not(:last-child)]:border-gray-200',
+            isSubmitting ? '[&_*]:opacity-70 [&_*]:cursor-not-allowed' : ''
+          )}
+        >
           <InputWrapper>
             <Input
               id="email"
@@ -77,7 +83,14 @@ export const Login = () => {
           </InputWrapper>
         </fieldset>
 
-        <Button ele="button" type="submit">
+        <Button
+          className={twMerge(
+            isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
+          )}
+          disabled={isSubmitting}
+          ele="button"
+          type="submit"
+        >
           Sign in
         </Button>
       </form>
