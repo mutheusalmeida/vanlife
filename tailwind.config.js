@@ -18,6 +18,7 @@ export default {
       'black-100': '#4D4D4D',
       'black-200': '#252525',
       black: '#161616',
+      red: '#EC5962',
     },
     extend: {},
   },
