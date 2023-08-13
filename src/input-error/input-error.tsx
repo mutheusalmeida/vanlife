@@ -15,12 +15,10 @@ export const InputError = ({ message }: InputErrorProps) => {
           </button>
         </Popover.Trigger>
 
-        <Popover.Anchor />
-
         <Popover.Portal>
           <Popover.Content
-            sideOffset={24}
-            side="left"
+            sideOffset={4}
+            side="bottom"
             className="rounded p-2 text-red bg-white w-max drop-shadow-md shadow-gray-100 text-xs"
           >
             <p>{message}</p>
