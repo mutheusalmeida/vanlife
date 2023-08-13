@@ -4,6 +4,7 @@ import { InputError } from '@/input-error'
 import { InputWrapper } from '@/input-wrapper'
 import { ShowPassword } from '@/show-password'
 import { Title } from '@/title'
+import { Toast } from '@/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
@@ -36,7 +37,9 @@ export const Login = () => {
 
   return (
     <div className="max-w-4xl mx-auto pt-12 pb-16 px-4">
-      <h1>{location.state?.message}</h1>
+      {location.state?.message && (
+        <Toast title="Ops!" content="You must login first" />
+      )}
 
       <Title heading="h2" className="text-3xl text-center mb-11">
         Sign in to your account

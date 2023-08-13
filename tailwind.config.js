@@ -20,7 +20,21 @@ export default {
       black: '#161616',
       red: '#EC5962',
     },
-    extend: {},
+    extend: {
+      keyframes: {
+        slideIn: {
+          from: {
+            transform: 'translateX(calc(100% + 1rem))',
+          },
+          to: {
+            transform: 'translateX(0)',
+          },
+        },
+      },
+      animation: {
+        slideIn: 'slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+      },
+    },
   },
   plugins: [],
 }
