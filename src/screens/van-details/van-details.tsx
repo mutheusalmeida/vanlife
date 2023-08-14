@@ -12,16 +12,18 @@ import type { ErrorType, VanType } from 'vans'
 
 export const VanDetails = () => {
   const { vanId } = useParams()
-  const [data, setData] = useState<VanType | null>(null)
-  const [error, setError] = useState<ErrorType | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
   const location = useLocation()
   const prevSearch = location.state?.search || ''
   const type = new URLSearchParams(location.state?.search).get('type')
+  const [data, setData] = useState<VanType | null>(null)
+  const [error, setError] = useState<ErrorType | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const getData = async () => {
       if (!vanId) {
+        setError({ message: 'Not Found' })
+
         return
       }
 

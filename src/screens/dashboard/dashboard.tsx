@@ -6,16 +6,31 @@ import { Title } from '@/title'
 import Van from '@/van'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import type { VanType } from 'vans'
+import type { ErrorType, VanType } from 'vans'
 
 export const Dashboard = () => {
   const [data, setData] = useState<VanType[] | null>(null)
+  const [error, setError] = useState<ErrorType | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const getData = async () => {
-      const vans = await getHostVans<VanType[]>()
+      try {
+        setIsLoading(true)
+        const data = await getHostVans<VanType[]>()
 
-      setData(vans)
+        setData(data)
+      } catch (err: unknown) {
+        let message = 'Unknown error'
+
+        if (err instanceof Error) {
+          message = err.message
+        }
+
+        setError({ message: message })
+      } finally {
+        setIsLoading(false)
+      }
     }
 
     getData()
@@ -82,7 +97,11 @@ export const Dashboard = () => {
           <Van.Link path="vans">View all</Van.Link>
         </div>
 
-        {data ? (
+        {error ? (
+          <p className="text-center">{error.message}</p>
+        ) : isLoading ? (
+          <Loading />
+        ) : data ? (
           <Van.Container>
             {data.map(({ id, imageUrl, price, name }) => (
               <div
@@ -96,7 +115,7 @@ export const Dashboard = () => {
             ))}
           </Van.Container>
         ) : (
-          <Loading />
+          <p className="text-center">No van found</p>
         )}
       </Van.Wrapper>
     </>

@@ -10,7 +10,7 @@ import { Home } from '@/screens/home'
 import { HostVanDetails } from '@/screens/host-van-details'
 import { HostVanPhotos } from '@/screens/host-van-photos'
 import { HostVanPricing } from '@/screens/host-van-pricing'
-import { ListedVans } from '@/screens/host-vans'
+import { HostVans } from '@/screens/host-vans'
 import { Income } from '@/screens/income'
 import { Reviews } from '@/screens/reviews'
 import { VanDetails } from '@/screens/van-details'
@@ -39,7 +39,7 @@ export const routes = createBrowserRouter(
         <Route path="host" element={<HostLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="income" element={<Income />} />
-          <Route path="vans" element={<ListedVans />} />
+          <Route path="vans" element={<HostVans />} />
           <Route path="vans/:vanId" element={<HostVanDetailsLayout />}>
             <Route index element={<HostVanDetails />} />
             <Route path="pricing" element={<HostVanPricing />} />

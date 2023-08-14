@@ -38,7 +38,11 @@ export async function getVan<T>(id: string) {
   const vanDoc = doc(db, 'vans', id)
   const snapshot = await getDoc(vanDoc)
 
-  return { ...snapshot.data(), id: snapshot.id } as T
+  if (!snapshot.exists()) {
+    throw new Error(`Van doesn't exist`)
+  }
+
+  return { ...snapshot.data(), id: snapshot } as T
 }
 
 export async function getHostVans<T>() {

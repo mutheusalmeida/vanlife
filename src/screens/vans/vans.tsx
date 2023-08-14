@@ -6,7 +6,7 @@ import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
-import type { VanType } from 'vans'
+import type { ErrorType, VanType } from 'vans'
 
 type LabelsType = Pick<VanType, 'type'>
 
@@ -23,19 +23,40 @@ const labels: LabelsType[] = [
 ]
 
 export const Vans = () => {
-  const [data, setData] = useState<VanType[] | null>(null)
   const [searchParams, setSearchParams] = useSearchParams()
   const typeParam = searchParams.get('type')?.toLocaleLowerCase()
+  const [data, setData] = useState<VanType[] | null>(null)
+  const [error, setError] = useState<ErrorType | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const getData = async () => {
-      const vans = await getVans<VanType[]>()
+      try {
+        setIsLoading(true)
+        const data = await getVans<VanType[]>()
 
-      setData(vans)
+        setData(data)
+      } catch (err: unknown) {
+        let message = 'Unknown error'
+
+        if (err instanceof Error) {
+          message = err.message
+        }
+
+        setError({ message: message })
+      } finally {
+        setIsLoading(false)
+      }
     }
 
     getData()
   }, [])
+
+  if (error) {
+    throw new Response(error.message, {
+      statusText: error.message,
+    })
+  }
 
   const handleSearchParams = (type: string, value: string | undefined) => {
     setSearchParams((prev) => {
@@ -54,7 +75,9 @@ export const Vans = () => {
   const displayData =
     filteredData && filteredData.length > 0 ? filteredData : data
 
-  return displayData ? (
+  return isLoading ? (
+    <Loading />
+  ) : displayData ? (
     <div className="container max-w-4xl mx-auto py-14 px-4">
       <Title heading="h1" className="text-[2rem] font-bold leading-[1.1875em]">
         Explore our van options
@@ -134,6 +157,6 @@ export const Vans = () => {
       </div>
     </div>
   ) : (
-    <Loading />
+    <p className="text-center">No van found</p>
   )
 }

@@ -8,7 +8,7 @@ import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useOutletContext, useParams } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
-import type { VanType } from 'vans'
+import type { ErrorType, VanType } from 'vans'
 
 const nav = [
   {
@@ -31,14 +31,34 @@ const nav = [
 export const HostVanDetailsLayout = () => {
   const { vanId } = useParams()
   const [data, setData] = useState<VanType | null>(null)
+  const [error, setError] = useState<ErrorType | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const getData = async () => {
-      if (vanId) {
-        const [slugId] = vanId.split('-').slice(-1)
-        const vans = await getVan<VanType>(slugId)
+      if (!vanId) {
+        setError({ message: 'Not Found' })
 
-        setData(vans)
+        return
+      }
+
+      const [slugId] = vanId.split('-').slice(-1)
+
+      try {
+        setIsLoading(true)
+        const data = await getVan<VanType>(slugId)
+
+        setData(data)
+      } catch (err: unknown) {
+        let message = 'Unknown error'
+
+        if (err instanceof Error) {
+          message = err.message
+        }
+
+        setError({ message: message })
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -52,35 +72,45 @@ export const HostVanDetailsLayout = () => {
           <ArrowIcon /> <span>Back to all vans</span>
         </NavigateButton>
 
-        {data ? (
+        {error ? (
+          <p className="text-center">{error.message}</p>
+        ) : (
           <div className="bg-white p-6 rounded-md">
             <div className="flex gap-5 items-center">
-              <img
-                className="rounded-md h-40 aspect-square"
-                src={data.imageUrl}
-              />
+              {isLoading ? (
+                <Loading />
+              ) : data ? (
+                <>
+                  <img
+                    className="rounded-md h-40 aspect-square"
+                    src={data.imageUrl}
+                  />
 
-              <div className="flex flex-col gap-4">
-                <VanLabel
-                  className="h-[2.1538em] text-[0.8125rem] leading-[2.1538em]"
-                  ele="span"
-                  type={data.type}
-                />
+                  <div className="flex flex-col gap-4">
+                    <VanLabel
+                      className="h-[2.1538em] text-[0.8125rem] leading-[2.1538em]"
+                      ele="span"
+                      type={data.type}
+                    />
 
-                <div>
-                  <Title heading="h2" className="text-[1.75rem] font-bold">
-                    {data.name}
-                  </Title>
+                    <div>
+                      <Title heading="h2" className="text-[1.75rem] font-bold">
+                        {data.name}
+                      </Title>
 
-                  <p className="text-xl font-bold leading-none">
-                    {formatCurrency(data.price, { maximumFractionDigits: 0 })}
+                      <p className="text-xl font-bold leading-none">
+                        {formatCurrency(data.price, {
+                          maximumFractionDigits: 0,
+                        })}
 
-                    <span className="align-bottom font-medium text-base">
-                      /day
-                    </span>
-                  </p>
-                </div>
-              </div>
+                        <span className="align-bottom font-medium text-base">
+                          /day
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </>
+              ) : null}
             </div>
 
             <nav
@@ -109,8 +139,6 @@ export const HostVanDetailsLayout = () => {
 
             <Outlet context={{ data }} />
           </div>
-        ) : (
-          <Loading />
         )}
       </div>
     </div>
