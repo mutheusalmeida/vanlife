@@ -46,7 +46,7 @@ export async function getVan<T>(id: string) {
 }
 
 export async function getHostVans<T>() {
-  const q = query(vansCollection, where('hostId', '==', '492'))
+  const q = query(vansCollection, where('hostId', '==', '2'))
   const snapshot = await getDocs(q)
   const vans = snapshot.docs.map((doc) => ({
     ...doc.data(),

@@ -3,7 +3,6 @@ import { AuthLayout } from '@/layouts/auth-layout'
 import { HostLayout } from '@/layouts/host-layout'
 import { HostVanDetailsLayout } from '@/layouts/host-van-details-layout'
 import { MainLayout } from '@/layouts/main-layout'
-import { Login } from '@/login'
 import { About } from '@/screens/about'
 import { Dashboard } from '@/screens/dashboard'
 import { Home } from '@/screens/home'
@@ -15,6 +14,8 @@ import { Income } from '@/screens/income'
 import { Reviews } from '@/screens/reviews'
 import { VanDetails } from '@/screens/van-details'
 import { Vans } from '@/screens/vans'
+import { SingIn } from '@/sign-in'
+import { SingUp } from '@/sign-up'
 import {
   createBrowserRouter,
   createRoutesFromChildren,
@@ -48,7 +49,8 @@ export const routes = createBrowserRouter(
           <Route path="reviews" element={<Reviews />} />
         </Route>
       </Route>
-      <Route path="login" element={<Login />} />
+      <Route path="sign-in" element={<SingIn />} />
+      <Route path="sign-up" element={<SingUp />} />
     </Route>
   )
 )

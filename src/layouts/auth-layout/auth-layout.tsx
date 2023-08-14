@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 export const AuthLayout = () => {
-  const authenticated = true
+  const authenticated = false
   const location = useLocation()
 
   if (!authenticated) {

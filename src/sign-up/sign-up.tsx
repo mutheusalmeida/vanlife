@@ -4,25 +4,30 @@ import { InputError } from '@/input-error'
 import { InputWrapper } from '@/input-wrapper'
 import { ShowPassword } from '@/show-password'
 import { Title } from '@/title'
-import { Toast } from '@/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import { z } from 'zod'
 
-const formSchema = z.object({
-  email: z.string().min(1, 'Email is required').email('Invalid email'),
-  password: z
-    .string()
-    .min(1, 'Password is required')
-    .min(8, 'Password must have at least 8 characters'),
-})
+const formSchema = z
+  .object({
+    name: z.string().min(1, 'Name is required').max(100, ''),
+    email: z.string().min(1, 'Email is required').email('Invalid email'),
+    password: z
+      .string()
+      .min(1, 'Password is required')
+      .min(8, 'Password must have at least 8 characters'),
+    reTypePassword: z.string().min(1, 'Password confirmation is required'),
+  })
+  .refine((data) => data.password === data.reTypePassword, {
+    path: ['reTypePassword'],
+    message: 'Passwords do not match',
+  })
 
 type FormSchemaType = z.infer<typeof formSchema>
 
-export const Login = () => {
-  const location = useLocation()
+export const SingUp = () => {
   const {
     register,
     handleSubmit,
@@ -37,12 +42,8 @@ export const Login = () => {
 
   return (
     <div className="max-w-4xl mx-auto pt-12 pb-16 px-4">
-      {location.state?.message && (
-        <Toast title="Ops!" content="You must login first" />
-      )}
-
       <Title heading="h2" className="text-3xl text-center mb-11">
-        Sign in to your account
+        Sign up to <span className="uppercase">#VanLife</span>
       </Title>
 
       <form
@@ -55,6 +56,18 @@ export const Login = () => {
             isSubmitting ? '[&_*]:opacity-70 [&_*]:cursor-not-allowed' : ''
           )}
         >
+          <InputWrapper>
+            <Input
+              id="name"
+              type="name"
+              disabled={isSubmitting}
+              placeholder="Name"
+              {...register('name')}
+            />
+
+            {errors.name && <InputError message={errors.name.message} />}
+          </InputWrapper>
+
           <InputWrapper>
             <Input
               id="email"
@@ -84,6 +97,24 @@ export const Login = () => {
               <InputError message={errors.password.message} />
             )}
           </InputWrapper>
+
+          <InputWrapper>
+            <ShowPassword>
+              {({ show }) => (
+                <Input
+                  id="reTypePassword"
+                  type={show ? 'text' : 'password'}
+                  disabled={isSubmitting}
+                  placeholder="Re-type password"
+                  {...register('reTypePassword')}
+                />
+              )}
+            </ShowPassword>
+
+            {errors.reTypePassword && (
+              <InputError message={errors.reTypePassword.message} />
+            )}
+          </InputWrapper>
         </fieldset>
 
         <Button
@@ -94,9 +125,16 @@ export const Login = () => {
           ele="button"
           type="submit"
         >
-          Sign in
+          Sign up
         </Button>
       </form>
+
+      <p className="mt-12 text-center">
+        Already have an account?{' '}
+        <Link className="text-orange-600 font-bold" to="/sign-in">
+          Sign in now
+        </Link>
+      </p>
     </div>
   )
 }

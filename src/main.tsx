@@ -2,17 +2,12 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { App } from './app'
 
-import { makeServer } from './server'
 import './styles/index.css'
 
 const rootElement = document.querySelector('[data-js="root"]') as HTMLElement
 
 if (!rootElement) {
   throw new Error('Failed to find the root element')
-}
-
-if (import.meta.env.DEV) {
-  makeServer({ environment: 'development' })
 }
 
 const root = createRoot(rootElement)
