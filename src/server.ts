@@ -94,6 +94,7 @@ export function makeServer({ environment = 'test' } = {}) {
     routes() {
       this.namespace = 'api'
       this.timing = 1200
+      this.passthrough('https://firestore.googleapis.com/**')
 
       this.get('/vans', (schema: AppSchema) => schema.all('vans'))
 

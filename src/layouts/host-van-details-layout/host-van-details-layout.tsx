@@ -1,6 +1,7 @@
 import { ReactComponent as ArrowIcon } from '@/assets/arrow-icon.svg'
 import { Loading } from '@/loading'
 import { NavigateButton } from '@/navigate-button'
+import { getVan } from '@/resources/api'
 import { formatCurrency } from '@/resources/utils'
 import { Title } from '@/title'
 import { VanLabel } from '@/van-label'
@@ -35,10 +36,9 @@ export const HostVanDetailsLayout = () => {
     const getData = async () => {
       if (vanId) {
         const [slugId] = vanId.split('-').slice(-1)
-        const res = await fetch(`/api/vans/${slugId}`)
-        const data = await res.json()
+        const vans = await getVan<VanType>(slugId)
 
-        setData(data?.vans)
+        setData(vans)
       }
     }
 

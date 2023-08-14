@@ -1,4 +1,5 @@
 import { Loading } from '@/loading'
+import { getVans } from '@/resources/api'
 import { slugfy } from '@/resources/utils'
 import { Title } from '@/title'
 import { VanLabel } from '@/van-label'
@@ -28,10 +29,9 @@ export const Vans = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch('/api/vans')
-      const data = await res.json()
+      const vans = await getVans<VanType[]>()
 
-      setData(data?.vans)
+      setData(vans)
     }
 
     getData()
