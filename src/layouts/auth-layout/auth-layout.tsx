@@ -7,7 +7,7 @@ export const AuthLayout = () => {
   if (!authenticated) {
     return (
       <Navigate
-        to="/login"
+        to="/sign-in"
         replace
         state={{ message: 'You must login first', from: location.pathname }}
       />

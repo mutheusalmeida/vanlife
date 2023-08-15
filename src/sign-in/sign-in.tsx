@@ -2,12 +2,15 @@ import { Button } from '@/button'
 import { Input } from '@/input'
 import { InputError } from '@/input-error'
 import { InputWrapper } from '@/input-wrapper'
+import { signInUser } from '@/resources/api'
 import { ShowPassword } from '@/show-password'
 import { Title } from '@/title'
 import { Toast } from '@/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { FirebaseError } from 'firebase/app'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import { z } from 'zod'
 
@@ -23,6 +26,8 @@ type FormSchemaType = z.infer<typeof formSchema>
 
 export const SingIn = () => {
   const location = useLocation()
+  const locationTo = location.state?.from || '/'
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -30,9 +35,18 @@ export const SingIn = () => {
   } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
   })
+  const [error, setError] = useState('')
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
-    console.log(data)
+    try {
+      setError('')
+      await signInUser(data)
+      navigate(locationTo, { replace: true })
+    } catch (err: unknown) {
+      if (err instanceof FirebaseError) {
+        setError(err.customData?.message as string)
+      }
+    }
   }
 
   return (
@@ -40,6 +54,8 @@ export const SingIn = () => {
       {location.state?.message && (
         <Toast title="Ops!" content="You must login first" />
       )}
+
+      {error && <Toast title="Ops!" content={error} />}
 
       <Title heading="h2" className="text-3xl text-center mb-11">
         Sign in to your account

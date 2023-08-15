@@ -1,5 +1,13 @@
 import { initializeApp } from 'firebase/app'
 import {
+  User,
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth'
+import {
   collection,
   doc,
   getDoc,
@@ -54,4 +62,34 @@ export async function getHostVans<T>() {
   }))
 
   return vans as T
+}
+
+const auth = getAuth(app)
+
+export async function createUser(data: {
+  name: string
+  email: string
+  password: string
+}) {
+  const { email, password, name } = data
+  await createUserWithEmailAndPassword(auth, email, password)
+
+  if (auth.currentUser) {
+    await updateProfile(auth.currentUser, { displayName: name })
+  }
+}
+
+export async function signInUser(data: { email: string; password: string }) {
+  const { email, password } = data
+  await signInWithEmailAndPassword(auth, email, password)
+}
+
+export function getUser() {
+  let user: User | null = null
+
+  onAuthStateChanged(auth, (currentUser) => {
+    user = currentUser
+  })
+
+  return user
 }
