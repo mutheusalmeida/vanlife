@@ -8,7 +8,7 @@ import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useOutletContext, useParams } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
-import type { ErrorType, VanType } from 'vans'
+import type { ErrorType, VanType } from 'vanlife'
 
 const nav = [
   {

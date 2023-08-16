@@ -6,7 +6,7 @@ import { VanLabel } from '@/van-label'
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
-import type { ErrorType, VanType } from 'vans'
+import type { ErrorType, VanType } from 'vanlife'
 
 type LabelsType = Pick<VanType, 'type'>
 
@@ -73,8 +73,6 @@ export const Vans = () => {
   const filteredData = data?.filter((van) => van.type === typeParam)
 
   const displayData = filteredData && typeParam ? filteredData : data
-
-  console.log(filteredData)
 
   return (
     <div className="container max-w-4xl mx-auto py-14 px-4">

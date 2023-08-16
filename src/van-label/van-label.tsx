@@ -1,6 +1,6 @@
 import { ElementType } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { VanType } from 'vans'
+import { VanType } from 'vanlife'
 
 type VanLabelProps = {
   ele: ElementType

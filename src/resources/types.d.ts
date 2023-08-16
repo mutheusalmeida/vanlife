@@ -1,4 +1,4 @@
-declare module 'vans' {
+declare module 'vanlife' {
   export type VanType = {
     id: string
     name: string
@@ -11,5 +11,10 @@ declare module 'vans' {
 
   export type ErrorType = {
     message: string
+  }
+
+  export type UserType = {
+    name: string
+    email: string
   }
 }

@@ -5,7 +5,7 @@ import { Title } from '@/title'
 import Van from '@/van'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ErrorType, VanType } from 'vans'
+import { ErrorType, VanType } from 'vanlife'
 
 export const HostVans = () => {
   const [data, setData] = useState<VanType[] | null>(null)
