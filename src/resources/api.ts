@@ -31,6 +31,8 @@ export const db = getFirestore(app)
 
 const vansCollection = collection(db, 'vans')
 
+const usersCollection = collection(db, 'users')
+
 export async function getVans<T>() {
   const snapshot = await getDocs(vansCollection)
   const vans = snapshot.docs.map((doc) => ({
@@ -61,6 +63,14 @@ export async function getHostVans<T>() {
   }))
 
   return vans as T
+}
+
+export async function getUser<T>(uid: string) {
+  const q = query(usersCollection, where('uid', '==', uid))
+  const snapshot = await getDocs(q)
+  const user = snapshot.docs[0].data()
+
+  return user as T
 }
 
 export const auth = getAuth(app)

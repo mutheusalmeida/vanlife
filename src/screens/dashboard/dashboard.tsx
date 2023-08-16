@@ -1,10 +1,9 @@
 import { ReactComponent as StarSvg } from '@/assets/star-icon.svg'
 import { Loading } from '@/loading'
-import { auth, db, getHostVans } from '@/resources/api'
+import { auth, getHostVans, getUser } from '@/resources/api'
 import { slugfy } from '@/resources/utils'
 import { Title } from '@/title'
 import Van from '@/van'
-import { collection, getDocs, query, where } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { Link } from 'react-router-dom'
@@ -24,9 +23,8 @@ export const Dashboard = () => {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const q = query(collection(db, 'users'), where('uid', '==', user?.uid))
-        const doc = await getDocs(q)
-        const data = doc.docs[0].data()
+        const data = await getUser('3CVyKdRhgnObadsynjtmurA9uU43')
+        console.log(data)
         setUserData(data as UserDataType)
       } catch (err) {
         console.error(err)
@@ -35,8 +33,6 @@ export const Dashboard = () => {
 
     getUserData()
   }, [user?.uid])
-
-  console.log(userData)
 
   useEffect(() => {
     const getData = async () => {
