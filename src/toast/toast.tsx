@@ -1,12 +1,15 @@
+import { ReactComponent as InfoIcon } from '@/assets/information-circle.svg'
 import { ReactComponent as XMarkIcon } from '@/assets/x-mark-icon.svg'
 import * as ToastPrimitive from '@radix-ui/react-toast'
 import { ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 type ToastProps = {
   title?: string
   content?: string
   children?: ReactNode
   actionAltText?: string
+  type?: 'error' | 'warning' | 'success'
 }
 
 export const Toast = ({
@@ -14,6 +17,7 @@ export const Toast = ({
   content,
   actionAltText = 'Notification action',
   children,
+  type,
   ...props
 }: ToastProps) => {
   return (
@@ -22,16 +26,31 @@ export const Toast = ({
         className="bg-white rounded-lg border border-gray-100 p-4 flex gap-1 items-center justify-between drop-shadow-lg shadow-gray-200 data-[state='open']:animate-slideIn data-[swipe='move']:translate-x-[var(--radix-toast-swipe-move-x)] data-[state='closed']:animate-hide data-[swipe='end']:animate-swipeOut data-[swipe='cancel']:translate-x-0 data-[swipe='cancel']:transition-[transform_200ms_ease-out]"
         {...props}
       >
-        <div className="flex flex-col gap-1">
-          {title && (
-            <ToastPrimitive.Title className="text-sm font-semibold">
-              {title}
-            </ToastPrimitive.Title>
+        <div className="flex gap-4">
+          {type && (
+            <div className="flex">
+              <div
+                className={twMerge(
+                  'p-[6px] h-max rounded-[8px] overflow-hidden',
+                  type === 'error' ? 'bg-gradient-red text-red' : ''
+                )}
+              >
+                <InfoIcon className="w-5" />
+              </div>
+            </div>
           )}
 
-          <ToastPrimitive.Description asChild>
-            <p className="text-black-100 text-sm">{content}</p>
-          </ToastPrimitive.Description>
+          <div className="flex flex-col gap-1">
+            {title && (
+              <ToastPrimitive.Title className="text-sm font-semibold">
+                {title}
+              </ToastPrimitive.Title>
+            )}
+
+            <ToastPrimitive.Description asChild>
+              <p className="text-black-100 text-sm">{content}</p>
+            </ToastPrimitive.Description>
+          </div>
         </div>
 
         {children && (

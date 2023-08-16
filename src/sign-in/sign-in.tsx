@@ -52,10 +52,10 @@ export const SingIn = () => {
   return (
     <div className="max-w-4xl mx-auto pt-12 pb-16 px-4">
       {location.state?.message && (
-        <Toast title="Ops!" content="You must login first" />
+        <Toast type="error" title="Ops!" content="You must login first" />
       )}
 
-      {error && <Toast title="Ops!" content={error} />}
+      {error && <Toast type="error" title="Ops!" content={error} />}
 
       <Title heading="h2" className="text-3xl text-center mb-11">
         Sign in to your account

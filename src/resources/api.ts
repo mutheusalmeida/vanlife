@@ -1,13 +1,12 @@
 import { initializeApp } from 'firebase/app'
 import {
-  User,
   createUserWithEmailAndPassword,
   getAuth,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
-  updateProfile,
+  signOut,
 } from 'firebase/auth'
 import {
+  addDoc,
   collection,
   doc,
   getDoc,
@@ -15,7 +14,7 @@ import {
   getFirestore,
   query,
   where,
-} from 'firebase/firestore/lite'
+} from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDQ595M_-dlOboFULH0kvkYATpuR-ihOkk',
@@ -28,7 +27,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 
-const db = getFirestore(app)
+export const db = getFirestore(app)
 
 const vansCollection = collection(db, 'vans')
 
@@ -64,7 +63,7 @@ export async function getHostVans<T>() {
   return vans as T
 }
 
-const auth = getAuth(app)
+export const auth = getAuth(app)
 
 export async function createUser(data: {
   name: string
@@ -72,11 +71,13 @@ export async function createUser(data: {
   password: string
 }) {
   const { email, password, name } = data
-  await createUserWithEmailAndPassword(auth, email, password)
-
-  if (auth.currentUser) {
-    await updateProfile(auth.currentUser, { displayName: name })
-  }
+  const res = await createUserWithEmailAndPassword(auth, email, password)
+  const user = res.user
+  await addDoc(collection(db, 'users'), {
+    uid: user.uid,
+    name,
+    email,
+  })
 }
 
 export async function signInUser(data: { email: string; password: string }) {
@@ -84,12 +85,6 @@ export async function signInUser(data: { email: string; password: string }) {
   await signInWithEmailAndPassword(auth, email, password)
 }
 
-export function getUser() {
-  let user: User | null = null
-
-  onAuthStateChanged(auth, (currentUser) => {
-    user = currentUser
-  })
-
-  return user
+export function logoutUser() {
+  signOut(auth)
 }

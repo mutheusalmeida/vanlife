@@ -1,17 +1,42 @@
 import { ReactComponent as StarSvg } from '@/assets/star-icon.svg'
 import { Loading } from '@/loading'
-import { getHostVans } from '@/resources/api'
+import { auth, db, getHostVans } from '@/resources/api'
 import { slugfy } from '@/resources/utils'
 import { Title } from '@/title'
 import Van from '@/van'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { Link } from 'react-router-dom'
 import type { ErrorType, VanType } from 'vans'
+
+type UserDataType = {
+  name: string
+}
 
 export const Dashboard = () => {
   const [data, setData] = useState<VanType[] | null>(null)
   const [error, setError] = useState<ErrorType | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [user] = useAuthState(auth)
+  const [userData, setUserData] = useState<UserDataType | null>(null)
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const q = query(collection(db, 'users'), where('uid', '==', user?.uid))
+        const doc = await getDocs(q)
+        const data = doc.docs[0].data()
+        setUserData(data as UserDataType)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+    getUserData()
+  }, [user?.uid])
+
+  console.log(userData)
 
   useEffect(() => {
     const getData = async () => {
@@ -41,7 +66,7 @@ export const Dashboard = () => {
       <div className="bg-orange-200 px-4 py-11">
         <div className="container max-w-4xl mx-auto">
           <Title className="font-bold mb-6" heading="h2">
-            Welcome!
+            Welcome, {userData && userData.name}
           </Title>
 
           <div className="flex justify-between gap-4 mb-6">

@@ -2,11 +2,15 @@ import { Button } from '@/button'
 import { Input } from '@/input'
 import { InputError } from '@/input-error'
 import { InputWrapper } from '@/input-wrapper'
+import { createUser } from '@/resources/api'
 import { ShowPassword } from '@/show-password'
 import { Title } from '@/title'
+import { Toast } from '@/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { FirebaseError } from 'firebase/app'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import { z } from 'zod'
 
@@ -35,13 +39,27 @@ export const SingUp = () => {
   } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
   })
+  const navigate = useNavigate()
+  const [error, setError] = useState('')
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
-    console.log(data)
+    const { name, email, password } = data
+
+    try {
+      setError('')
+      await createUser({ name, email, password })
+      navigate('/sign-in')
+    } catch (err: unknown) {
+      if (err instanceof FirebaseError) {
+        setError(err.customData?.message as string)
+      }
+    }
   }
 
   return (
     <div className="max-w-4xl mx-auto pt-12 pb-16 px-4">
+      {error && <Toast type="error" title="Ops!" content={error} />}
+
       <Title heading="h2" className="text-3xl text-center mb-11">
         Sign up to <span className="uppercase">#VanLife</span>
       </Title>

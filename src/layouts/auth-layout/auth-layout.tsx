@@ -1,10 +1,12 @@
+import { auth } from '@/resources/api'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 export const AuthLayout = () => {
-  const authenticated = false
+  const [user] = useAuthState(auth)
   const location = useLocation()
 
-  if (!authenticated) {
+  if (!user) {
     return (
       <Navigate
         to="/sign-in"

@@ -19,8 +19,13 @@ export default {
       'black-200': '#252525',
       black: '#161616',
       red: '#EC5962',
+      gree: '#7CC731',
     },
     extend: {
+      backgroundImage: {
+        'gradient-red': 'linear-gradient(180deg, #FEE6E5 0%, #FBD0D0 100%)',
+        'gradient-green': 'linear-gradient(180deg, #E6F6D1 0%, #CFEEA8 100%)',
+      },
       keyframes: {
         slideIn: {
           from: {
