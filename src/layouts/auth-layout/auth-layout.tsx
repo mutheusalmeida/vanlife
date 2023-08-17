@@ -40,7 +40,7 @@ export const AuthLayout = () => {
   }
 
   return (
-    <UserProvider value={{ user: data }}>
+    <UserProvider value={{ user: data ? { ...data, id: user?.uid } : null }}>
       <Outlet />
     </UserProvider>
   )

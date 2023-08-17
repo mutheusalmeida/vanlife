@@ -23,7 +23,7 @@ export const VanLabel = ({
             ? 'bg-orange'
             : type === 'luxury'
             ? 'bg-black'
-            : 'bg-green',
+            : 'bg-green-100',
           className
         )
       )}

@@ -12,6 +12,7 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
+import { ErrorType } from 'vanlife'
 import { z } from 'zod'
 
 const formSchema = z.object({
@@ -35,16 +36,22 @@ export const SingIn = () => {
   } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
   })
-  const [error, setError] = useState('')
+  const [error, setError] = useState<ErrorType | null>(null)
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
     try {
-      setError('')
+      setError(null)
       await signInUser(data)
-      navigate(locationTo, { replace: true })
+      navigate(locationTo, {
+        replace: true,
+        state: { from: location.pathname },
+      })
     } catch (err: unknown) {
       if (err instanceof FirebaseError) {
-        setError(err.customData?.message as string)
+        const message =
+          (err.customData?.message as string) || err.message || err.code
+
+        setError({ message })
       }
     }
   }
@@ -55,7 +62,14 @@ export const SingIn = () => {
         <Toast type="error" title="Ops!" content="You must login first" />
       )}
 
-      {error && <Toast type="error" title="Ops!" content={error} />}
+      {error && (
+        <Toast
+          onOpenChange={() => setError(null)}
+          type="error"
+          title="Ops!"
+          content={error.message}
+        />
+      )}
 
       <Title heading="h2" className="text-3xl text-center mb-11">
         Sign in to your account

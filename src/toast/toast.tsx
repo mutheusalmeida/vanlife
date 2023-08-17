@@ -10,6 +10,7 @@ type ToastProps = {
   children?: ReactNode
   actionAltText?: string
   type?: 'error' | 'warning' | 'success'
+  onOpenChange?: (open: boolean) => void
 }
 
 export const Toast = ({
@@ -18,13 +19,16 @@ export const Toast = ({
   actionAltText = 'Notification action',
   children,
   type,
+  onOpenChange,
   ...props
 }: ToastProps) => {
   return (
     <ToastPrimitive.Provider swipeDirection="right">
       <ToastPrimitive.Root
-        className="bg-white rounded-lg border border-gray-100 p-4 flex gap-1 items-center justify-between drop-shadow-lg shadow-gray-200 data-[state='open']:animate-slideIn data-[swipe='move']:translate-x-[var(--radix-toast-swipe-move-x)] data-[state='closed']:animate-hide data-[swipe='end']:animate-swipeOut data-[swipe='cancel']:translate-x-0 data-[swipe='cancel']:transition-[transform_200ms_ease-out]"
+        className="bg-orange-100 rounded-lg p-4 flex gap-1 items-center justify-between drop-shadow-lg shadow-gray-200 data-[state='open']:animate-slideIn data-[swipe='move']:translate-x-[var(--radix-toast-swipe-move-x)] data-[state='closed']:animate-hide data-[swipe='end']:animate-swipeOut data-[swipe='cancel']:translate-x-0 data-[swipe='cancel']:transition-[transform_200ms_ease-out]"
+        onOpenChange={onOpenChange}
         {...props}
+        open
       >
         <div className="flex gap-4">
           {type && (
@@ -32,7 +36,11 @@ export const Toast = ({
               <div
                 className={twMerge(
                   'p-[6px] h-max rounded-[8px] overflow-hidden',
-                  type === 'error' ? 'bg-gradient-red text-red' : ''
+                  type === 'error'
+                    ? 'bg-gradient-red text-red'
+                    : type === 'success'
+                    ? 'bg-gradient-green text-green'
+                    : ''
                 )}
               >
                 <InfoIcon className="w-5" />

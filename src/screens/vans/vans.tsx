@@ -92,14 +92,14 @@ export const Vans = () => {
                 ? 'hover:bg-orange'
                 : type === 'luxury'
                 ? 'hover:bg-black'
-                : 'hover:bg-green',
+                : 'hover:bg-green-100',
               typeParam === type ? 'text-orange-200' : '',
               typeParam === type
                 ? type === 'simple'
                   ? 'bg-orange'
                   : type === 'luxury'
                   ? 'bg-black'
-                  : 'bg-green'
+                  : 'bg-green-100'
                 : ''
             )}
             type={type}

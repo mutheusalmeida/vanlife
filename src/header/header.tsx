@@ -24,11 +24,11 @@ const nav = [
 export const Header = () => {
   const [openPopover, setOpenPopover] = useState(false)
   const [user, loading] = useAuthState(auth)
-  const isAuthenticated = Boolean(user && !loading)
+  const isAuthenticated = Boolean(!loading && user)
   const navigate = useNavigate()
 
   return (
-    <div className="container flex justify-between items-center mx-auto py-7 px-4">
+    <div className="container flex justify-between flex-wrap gap-2 items-center mx-auto py-7 px-4">
       <h1
         className="uppercase font-black text-black text-2xl"
         aria-label="VanLife logo"
@@ -37,9 +37,9 @@ export const Header = () => {
       </h1>
 
       <nav className="text-black-100" aria-label="Main navigation">
-        <ul className="flex gap-6 font-semibold">
+        <ul className="flex flex-wrap gap-6 font-semibold">
           {isAuthenticated && (
-            <li>
+            <li className="flex items-center">
               <NavLink
                 className={({ isActive }) =>
                   twMerge(
@@ -55,7 +55,7 @@ export const Header = () => {
           )}
 
           {nav.map(({ id, label, path }) => (
-            <li key={id}>
+            <li className="flex items-center" key={id}>
               <NavLink
                 className={({ isActive }) =>
                   twMerge(
@@ -119,9 +119,9 @@ export const Header = () => {
             </Popover.Root>
           )}
 
-          {!isAuthenticated && (
+          {!loading && !isAuthenticated && (
             <>
-              <li>
+              <li className="flex items-center">
                 <NavLink
                   className={({ isActive }) =>
                     twMerge(
@@ -135,7 +135,7 @@ export const Header = () => {
                 </NavLink>
               </li>
 
-              <li>
+              <li className="flex items-center">
                 <NavLink
                   className="text-white hover:text-gray-100 bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded-md"
                   to="/sign-up"

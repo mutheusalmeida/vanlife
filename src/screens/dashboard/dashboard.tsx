@@ -4,42 +4,57 @@ import { Loading } from '@/loading'
 import { getHostVans } from '@/resources/api'
 import { slugfy } from '@/resources/utils'
 import { Title } from '@/title'
+import { Toast } from '@/toast'
 import Van from '@/van'
+import { FirebaseError } from 'firebase/app'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import type { ErrorType, VanType } from 'vanlife'
 
 export const Dashboard = () => {
   const [data, setData] = useState<VanType[] | null>(null)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const locationFrom = location.state?.from
   const [error, setError] = useState<ErrorType | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const { user } = useUser()
 
   useEffect(() => {
     const getData = async () => {
-      try {
-        setIsLoading(true)
-        const data = await getHostVans<VanType[]>()
+      if (user && user.id) {
+        try {
+          setIsLoading(true)
+          const data = await getHostVans<VanType[]>(user.id)
 
-        setData(data)
-      } catch (err: unknown) {
-        let message = 'Unknown error'
+          setData(data)
+        } catch (err: unknown) {
+          if (err instanceof FirebaseError) {
+            const message =
+              (err.customData?.message as string) || err.message || err.code
 
-        if (err instanceof Error) {
-          message = err.message
+            setError({ message })
+          }
+        } finally {
+          setIsLoading(false)
         }
-
-        setError({ message: message })
-      } finally {
-        setIsLoading(false)
       }
     }
 
     getData()
-  }, [])
+  }, [user])
 
   return (
     <>
+      {locationFrom === '/sign-in' && (
+        <Toast
+          onOpenChange={() => navigate(location.pathname, {})}
+          type="success"
+          title="Great!"
+          content="You're logged in."
+        />
+      )}
+
       <div className="bg-orange-200 px-4 py-11">
         <div className="container max-w-4xl mx-auto">
           <Title className="font-bold mb-6" heading="h2">

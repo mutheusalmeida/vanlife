@@ -16,5 +16,6 @@ declare module 'vanlife' {
   export type UserType = {
     name: string
     email: string
+    id: string | undefined
   }
 }

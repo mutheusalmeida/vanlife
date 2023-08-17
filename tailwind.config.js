@@ -14,13 +14,13 @@ export default {
       'orange-600': '#FF8C38',
       'orange-700': '#DD7A32',
       orange: '#E17654',
-      green: '#115E59',
+      'green-100': '#115E59',
       'black-100': '#4D4D4D',
       'black-200': '#252525',
       black: '#161616',
       red: '#EC5962',
       'red-100': '#D5394A',
-      gree: '#7CC731',
+      green: '#7CC731',
     },
     extend: {
       backgroundImage: {
