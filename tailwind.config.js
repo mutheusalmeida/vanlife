@@ -19,6 +19,7 @@ export default {
       'black-200': '#252525',
       black: '#161616',
       red: '#EC5962',
+      'red-100': '#D5394A',
       gree: '#7CC731',
     },
     extend: {

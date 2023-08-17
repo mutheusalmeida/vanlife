@@ -26,7 +26,7 @@ type FormSchemaType = z.infer<typeof formSchema>
 
 export const SingIn = () => {
   const location = useLocation()
-  const locationTo = location.state?.from || '/'
+  const locationTo = location.state?.from || '/host'
   const navigate = useNavigate()
   const {
     register,

@@ -1,4 +1,4 @@
-import { ReactComponent as InfoIcon } from '@/assets/information-circle.svg'
+import { ReactComponent as InfoIcon } from '@/assets/information-icon.svg'
 import { ReactComponent as XMarkIcon } from '@/assets/x-mark-icon.svg'
 import * as ToastPrimitive from '@radix-ui/react-toast'
 import { ReactNode } from 'react'
