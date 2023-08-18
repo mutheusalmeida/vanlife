@@ -1,48 +1,19 @@
 import { ReactComponent as StarSvg } from '@/assets/star-icon.svg'
 import { useUser } from '@/contexts/user-context'
+import { useHostVans } from '@/layouts/host-layout'
 import { Loading } from '@/loading'
-import { getHostVans } from '@/resources/api'
 import { slugfy } from '@/resources/utils'
 import { Title } from '@/title'
 import { Toast } from '@/toast'
 import Van from '@/van'
-import { FirebaseError } from 'firebase/app'
-import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import type { ErrorType, VanType } from 'vanlife'
 
 export const Dashboard = () => {
-  const [data, setData] = useState<VanType[] | null>(null)
   const location = useLocation()
   const navigate = useNavigate()
   const locationFrom = location.state?.from
-  const [error, setError] = useState<ErrorType | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
   const { user } = useUser()
-
-  useEffect(() => {
-    const getData = async () => {
-      if (user && user.id) {
-        try {
-          setIsLoading(true)
-          const data = await getHostVans<VanType[]>(user.id)
-
-          setData(data)
-        } catch (err: unknown) {
-          if (err instanceof FirebaseError) {
-            const message =
-              (err.customData?.message as string) || err.message || err.code
-
-            setError({ message })
-          }
-        } finally {
-          setIsLoading(false)
-        }
-      }
-    }
-
-    getData()
-  }, [user])
+  const { data, error, isLoading } = useHostVans()
 
   return (
     <>
@@ -58,7 +29,7 @@ export const Dashboard = () => {
       <div className="bg-orange-200 px-4 py-11">
         <div className="container max-w-4xl mx-auto">
           <Title className="font-bold mb-6" heading="h2">
-            Welcome, {user?.name}
+            Welcome, {user.name}
           </Title>
 
           <div className="flex justify-between gap-4 mb-6">
@@ -131,9 +102,9 @@ export const Dashboard = () => {
               </div>
             ))}
           </Van.Container>
-        ) : (
+        ) : user ? (
           <p className="text-center">No van found</p>
-        )}
+        ) : null}
       </Van.Wrapper>
     </>
   )

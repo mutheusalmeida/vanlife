@@ -8,7 +8,10 @@ type LoadingProps = {
 export const Loading = ({ className }: LoadingProps) => {
   return (
     <div
-      className={twMerge('flex h-full items-center justify-center', className)}
+      className={twMerge(
+        'flex p-4 min-h-full items-center justify-center',
+        className
+      )}
     >
       <Title heading="h2" className="text-sm font-normal text-center">
         Loading...

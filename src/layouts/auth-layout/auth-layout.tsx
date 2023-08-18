@@ -11,7 +11,7 @@ export const AuthLayout = () => {
   const [data, setData] = useState<UserType | null>(null)
 
   useEffect(() => {
-    if (user) {
+    if (user && user.uid) {
       const getUserData = async () => {
         try {
           const data = await getUser<UserType>(user.uid)
@@ -29,6 +29,14 @@ export const AuthLayout = () => {
     return null
   }
 
+  if (!data) {
+    return null
+  }
+
+  if (!user) {
+    return null
+  }
+
   if (!loading && !user) {
     return (
       <Navigate
@@ -40,7 +48,7 @@ export const AuthLayout = () => {
   }
 
   return (
-    <UserProvider value={{ user: data ? { ...data, id: user?.uid } : null }}>
+    <UserProvider value={{ user: { ...data, id: user.uid } }}>
       <Outlet />
     </UserProvider>
   )

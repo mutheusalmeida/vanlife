@@ -2,7 +2,7 @@ import { ReactNode, createContext, useContext } from 'react'
 import type { UserType } from 'vanlife'
 
 type UserContextType = {
-  user: UserType | null
+  user: UserType
 }
 
 type UserProviderProps = {
