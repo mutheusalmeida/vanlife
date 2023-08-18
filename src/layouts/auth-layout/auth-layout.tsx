@@ -1,43 +1,15 @@
 import { UserProvider } from '@/contexts/user-context'
-import { auth, getUser } from '@/resources/api'
-import { useEffect, useState } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { UserType } from 'vanlife'
+import { useAuth } from '@/hooks/use-auth'
+import { Navigate, Outlet } from 'react-router-dom'
 
 export const AuthLayout = () => {
-  const [user, loading] = useAuthState(auth)
-  const location = useLocation()
-  const [data, setData] = useState<UserType | null>(null)
+  const { isLoading, data } = useAuth()
 
-  useEffect(() => {
-    if (user && user.uid) {
-      const getUserData = async () => {
-        try {
-          const data = await getUser<UserType>(user.uid)
-          setData(data)
-        } catch (err) {
-          console.error(err)
-        }
-      }
-
-      getUserData()
-    }
-  }, [loading, location.pathname, user])
-
-  if (loading) {
+  if (isLoading || !data) {
     return null
   }
 
-  if (!data) {
-    return null
-  }
-
-  if (!user) {
-    return null
-  }
-
-  if (!loading && !user) {
+  if (!isLoading && !data) {
     return (
       <Navigate
         to="/sign-in"
@@ -48,7 +20,7 @@ export const AuthLayout = () => {
   }
 
   return (
-    <UserProvider value={{ user: { ...data, id: user.uid } }}>
+    <UserProvider value={{ user: data }}>
       <Outlet />
     </UserProvider>
   )

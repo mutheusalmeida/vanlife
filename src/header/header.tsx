@@ -1,10 +1,10 @@
 import { ReactComponent as LogoutIcon } from '@/assets/logout-icon.svg'
 import { ReactComponent as UserPlaceholderIcon } from '@/assets/user-circle-icon.svg'
 import { ReactComponent as UserIcon } from '@/assets/user-icon.svg'
-import { auth, logoutUser } from '@/resources/api'
+import { useAuth } from '@/hooks/use-auth'
+import { logoutUser } from '@/resources/api'
 import * as Popover from '@radix-ui/react-popover'
 import { useState } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 
@@ -23,8 +23,7 @@ const nav = [
 
 export const Header = () => {
   const [openPopover, setOpenPopover] = useState(false)
-  const [user, loading] = useAuthState(auth)
-  const isAuthenticated = Boolean(!loading && user)
+  const { isLoading, data } = useAuth()
   const navigate = useNavigate()
 
   return (
@@ -38,7 +37,7 @@ export const Header = () => {
 
       <nav className="text-black-100" aria-label="Main navigation">
         <ul className="flex flex-wrap gap-6 font-semibold">
-          {isAuthenticated && (
+          {data && (
             <li className="flex items-center">
               <NavLink
                 className={({ isActive }) =>
@@ -70,7 +69,7 @@ export const Header = () => {
             </li>
           ))}
 
-          {isAuthenticated && (
+          {data && (
             <Popover.Root open={openPopover} onOpenChange={setOpenPopover}>
               <Popover.Trigger asChild>
                 <button className="appearance-none">
@@ -119,7 +118,7 @@ export const Header = () => {
             </Popover.Root>
           )}
 
-          {!loading && !isAuthenticated && (
+          {!isLoading && !data && (
             <>
               <li className="flex items-center">
                 <NavLink
