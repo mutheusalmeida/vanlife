@@ -7,17 +7,14 @@ import { ErrorType, UserType } from 'vanlife'
 export const useAuth = () => {
   const [user, loading, authError] = useAuthState(auth)
   const [data, setData] = useState<UserType | null>(null)
-  const [error, setError] = useState<ErrorType | null>(
-    !loading && authError ? { message: 'Error while trying to login' } : null
-  )
-  const [isLoading, setIsLoading] = useState(loading)
+  const [error, setError] = useState<ErrorType | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (user && user.uid) {
       const getUserData = async () => {
         try {
           setError(null)
-          setIsLoading(true)
           const data = await getUser<UserType>(user.uid)
           setData({ ...data, id: user.uid })
         } catch (err: unknown) {
@@ -37,6 +34,12 @@ export const useAuth = () => {
       setData(null)
     }
   }, [loading, user])
+
+  useEffect(() => {
+    if (!loading && authError) {
+      setError({ message: 'Error while trying to login' })
+    }
+  }, [authError, loading])
 
   return {
     error,
