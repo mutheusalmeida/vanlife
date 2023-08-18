@@ -89,7 +89,7 @@ export const Dashboard = () => {
           <p className="text-center">{error.message}</p>
         ) : isLoading ? (
           <Loading />
-        ) : data ? (
+        ) : data && data.length > 0 ? (
           <Van.Container>
             {data.map(({ id, imageUrl, price, name }) => (
               <div
@@ -102,9 +102,9 @@ export const Dashboard = () => {
               </div>
             ))}
           </Van.Container>
-        ) : user ? (
+        ) : (
           <p className="text-center">No van found</p>
-        ) : null}
+        )}
       </Van.Wrapper>
     </>
   )

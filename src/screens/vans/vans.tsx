@@ -3,6 +3,7 @@ import { getVans } from '@/resources/api'
 import { slugfy } from '@/resources/utils'
 import { Title } from '@/title'
 import { VanLabel } from '@/van-label'
+import { FirebaseError } from 'firebase/app'
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
@@ -37,13 +38,12 @@ export const Vans = () => {
 
         setData(data)
       } catch (err: unknown) {
-        let message = 'Unknown error'
+        if (err instanceof FirebaseError) {
+          const message =
+            (err.customData?.message as string) || err.message || err.code
 
-        if (err instanceof Error) {
-          message = err.message
+          setError({ message })
         }
-
-        setError({ message: message })
       } finally {
         setIsLoading(false)
       }

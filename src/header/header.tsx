@@ -79,17 +79,12 @@ export const Header = () => {
               <Popover.Portal>
                 <Popover.Content align="end" sideOffset={4}>
                   <ul className=" rounded bg-orange-100 py-2 drop-shadow-md shadow-orange-400 text-black-200 [*>li]:cursor-pointer">
-                    <li className="px-4 py-[10px]">
-                      <Popover.Close asChild>
-                        <Link
-                          to="#"
-                          className="flex appearance-none items-center gap-2"
-                        >
-                          <UserIcon className="w-5" />
+                    <li className="px-4 py-[10px] cursor-default">
+                      <span className="flex appearance-none items-center gap-2">
+                        <UserIcon className="w-5" />
 
-                          <span className="text-sm leading-5">Profile</span>
-                        </Link>
-                      </Popover.Close>
+                        <span className="text-sm leading-5">{data.name}</span>
+                      </span>
                     </li>
 
                     <hr className="h-[1px] border-none my-2 bg-orange-300" />

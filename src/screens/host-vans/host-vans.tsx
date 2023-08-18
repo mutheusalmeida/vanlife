@@ -20,7 +20,7 @@ export const HostVans = () => {
         <p className="text-center">{error.message}</p>
       ) : isLoading ? (
         <Loading />
-      ) : data ? (
+      ) : data && data.length > 0 ? (
         <Van.Container>
           {data.map(({ id, imageUrl, price, name }) => (
             <Link
