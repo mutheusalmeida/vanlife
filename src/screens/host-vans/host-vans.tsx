@@ -10,7 +10,7 @@ export const HostVans = () => {
 
   return (
     <Van.Wrapper className="pt-0">
-      <div className="flex justify-between gap-3 mb-9">
+      <div className="mb-9 flex justify-between gap-3">
         <Title className="text-3xl font-bold" heading="h2">
           Your listed vans
         </Title>
@@ -24,7 +24,7 @@ export const HostVans = () => {
         <Van.Container>
           {data.map(({ id, imageUrl, price, name }) => (
             <Link
-              className="flex justify-between gap-4 items-center py-4 px-6 rounded-md bg-white"
+              className="flex items-center justify-between gap-4 rounded-md bg-white px-6 py-4"
               key={id}
               to={`${slugfy(name)}-${id}`}
             >

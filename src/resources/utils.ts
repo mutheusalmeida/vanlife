@@ -22,3 +22,10 @@ export function formatCurrency(
 
   return Intl.NumberFormat('en', formatOptions).format(value)
 }
+
+export function getMonth(month: number) {
+  const date = new Date()
+  date.setMonth(month - 1)
+
+  return date.toLocaleString('en-US', { month: 'short' })
+}

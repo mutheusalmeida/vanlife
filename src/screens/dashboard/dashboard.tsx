@@ -27,18 +27,18 @@ export const Dashboard = () => {
       )}
 
       <div className="bg-orange-200 px-4 py-11">
-        <div className="container max-w-4xl mx-auto">
-          <Title className="font-bold mb-6" heading="h2">
+        <div className="mx-auto max-w-4xl">
+          <Title className="mb-6 font-bold" heading="h2">
             Welcome, {user.name}
           </Title>
 
-          <div className="flex justify-between gap-4 mb-6">
+          <div className="mb-6 flex justify-between gap-4">
             <p className="font-medium text-black-100">
-              Income last <span className="font-bold">30 days</span>
+              Income last <span className="font-bold underline">30 days</span>
             </p>
 
             <Link
-              className="hover:text-black-100 hover:underline transition-colors"
+              className="transition-colors hover:text-black-100 hover:underline"
               to="income"
             >
               Details
@@ -52,13 +52,13 @@ export const Dashboard = () => {
       </div>
 
       <div className="bg-orange-300 px-4 py-11">
-        <div className="container max-w-4xl mx-auto flex justify-between gap-4">
+        <div className="container mx-auto flex max-w-4xl justify-between gap-4">
           <div className="flex justify-between gap-3">
             <Title className="text-2xl font-bold" heading="h2">
               Review score
             </Title>
 
-            <p className="text-xl font-bold flex items-center">
+            <p className="flex items-center text-xl font-bold">
               <StarSvg className="mr-2" />
 
               <span>5.0</span>
@@ -68,7 +68,7 @@ export const Dashboard = () => {
           </div>
 
           <Link
-            className="hover:text-black-100 hover:underline transition-colors"
+            className="transition-colors hover:text-black-100 hover:underline"
             to="reviews"
           >
             Details
@@ -77,7 +77,7 @@ export const Dashboard = () => {
       </div>
 
       <Van.Wrapper>
-        <div className="flex justify-between gap-3 mb-9">
+        <div className="mb-9 flex justify-between gap-3">
           <Title className="text-2xl font-bold" heading="h2">
             Your listed vans
           </Title>
@@ -93,7 +93,7 @@ export const Dashboard = () => {
           <Van.Container>
             {data.map(({ id, imageUrl, price, name }) => (
               <div
-                className="flex justify-between gap-4 items-center py-4 px-6 rounded-md bg-white"
+                className="flex items-center justify-between gap-4 rounded-md bg-white px-6 py-4"
                 key={id}
               >
                 <Van.Content imageUrl={imageUrl} price={price} name={name} />
