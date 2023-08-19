@@ -9,52 +9,15 @@ import {
 } from 'victory'
 
 const data = [
-  { month: 2, earnings: 7400 },
-  { month: 3, earnings: 2600 },
-  { month: 4, earnings: 1100 },
-  { month: 5, earnings: 1300 },
-  { month: 6, earnings: 1600 },
-  { month: 7, earnings: 1250 },
+  { month: 2, earnings: 4300 },
+  { month: 3, earnings: 1000 },
+  { month: 4, earnings: 1050 },
+  { month: 5, earnings: 7800 },
+  { month: 6, earnings: 2400 },
+  { month: 7, earnings: 5700 },
 ]
 
 export const Income = () => {
-  const increaseRate = Math.max(
-    ...data.map((item) =>
-      Math.ceil(
-        Math.floor((Math.floor(item.earnings / 1000) * 1000) / data.length) /
-          1000
-      )
-    )
-  )
-
-  const max = Math.max(
-    ...data.map((item) => Math.floor(item.earnings / 1000) * 1000)
-  )
-
-  const earnings = [
-    ...Array(data.length)
-      .fill(0)
-      .reduce<number[]>(
-        (acc: number[], curr: number, index) => {
-          const newValue = curr + increaseRate * (index + 1) * 1000
-          const limitValue = max + increaseRate * 1000
-
-          if (!acc.includes(newValue)) {
-            if (newValue >= limitValue) {
-              return acc
-            } else {
-              return [...acc, newValue]
-            }
-          } else {
-            return acc
-          }
-        },
-        [0]
-      )
-      .filter((item) => item > -1)
-      .sort((a, b) => a - b),
-  ]
-
   const labelStyle = {
     fontFamily: 'Inter, sans-serif',
     fontSize: 18,
@@ -66,6 +29,17 @@ export const Income = () => {
   const axisStyle = {
     stroke: 'transparent',
     strokeWidth: 0,
+  }
+
+  const rates = data.map((item) => Math.floor(Math.log10(item.earnings)) + 1)
+  const rate = Math.max(...rates)
+
+  const getTickFormat = (value: number, rate: number) => {
+    const format =
+      rate >= 7 ? value / 1000000 : rate >= 4 ? value / 1000 : value
+    const sufix = rate >= 7 ? 'm' : rate >= 4 ? 'k' : ''
+
+    return `$${format}${sufix}`
   }
 
   return (
@@ -86,6 +60,13 @@ export const Income = () => {
         <VictoryChart
           containerComponent={<VictoryContainer className="max-w-[493px]" />}
           domainPadding={{ x: [30, 36] }}
+          domain={{
+            y: [
+              0,
+              Math.max(...data.map((item) => item.earnings)) +
+                (rate >= 7 ? 1000000 : rate >= 4 ? 1000 : 100),
+            ],
+          }}
           padding={{ left: 64, right: 0, bottom: 40, top: 8 }}
         >
           <VictoryAxis
@@ -98,11 +79,10 @@ export const Income = () => {
           />
           <VictoryAxis
             dependentAxis
-            tickValues={earnings}
-            tickFormat={(x) => `$${x / 1000}k`}
-            offsetX={36}
+            tickFormat={(x) => getTickFormat(x, rate)}
+            offsetX={12}
             style={{
-              tickLabels: labelStyle,
+              tickLabels: { ...labelStyle, textAnchor: 'start' },
               grid: {
                 stroke: '#B9B9B9',
                 strokeDasharray: 16,
